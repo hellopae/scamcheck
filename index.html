@@ -4,6 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>ScamCheck — ตรวจสอบ Scammer ด้วย AI</title>
+  <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
   <style>
     :root {
       --red: #e63946;
@@ -252,6 +253,33 @@
 
     footer { text-align: center; padding: 2rem; color: var(--gray-400); font-size: 0.82rem; margin-top: 3rem; border-top: 1px solid var(--gray-200); }
 
+    /* ===== ADS ===== */
+    .ad-wrapper { text-align: center; margin: 1.25rem 0; }
+    .ad-label { font-size: 0.7rem; color: var(--gray-400); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 4px; }
+    .ad-leaderboard { display: inline-flex; align-items: center; justify-content: space-between; width: 100%; max-width: 728px; height: 90px; border-radius: 10px; border: 1px solid var(--gray-200); overflow: hidden; background: white; box-shadow: 0 2px 8px rgba(0,0,0,0.05); cursor: pointer; transition: box-shadow 0.2s; }
+    .ad-leaderboard:hover { box-shadow: var(--shadow); }
+    .ad-rect { display: inline-flex; align-items: stretch; width: 100%; border-radius: 10px; border: 1px solid var(--gray-200); overflow: hidden; background: white; box-shadow: 0 2px 8px rgba(0,0,0,0.05); cursor: pointer; transition: box-shadow 0.2s; min-height: 80px; }
+    .ad-rect:hover { box-shadow: var(--shadow); }
+    .ad-color-block { width: 6px; flex-shrink: 0; }
+    .ad-body { display: flex; align-items: center; gap: 14px; padding: 14px 18px; flex: 1; }
+    .ad-icon-wrap { width: 44px; height: 44px; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 1.4rem; flex-shrink: 0; }
+    .ad-text { flex: 1; text-align: left; }
+    .ad-text .ad-title { font-size: 0.9rem; font-weight: 700; color: var(--gray-800); }
+    .ad-text .ad-desc { font-size: 0.8rem; color: var(--gray-600); margin-top: 2px; }
+    .ad-text .ad-cta { font-size: 0.75rem; font-weight: 700; margin-top: 5px; display: inline-block; padding: 3px 10px; border-radius: 6px; color: white; }
+    .ad-leaderboard-inner { display: flex; align-items: center; gap: 16px; padding: 0 20px; width: 100%; }
+    .ad-leaderboard-icon { font-size: 2rem; flex-shrink: 0; }
+    .ad-leaderboard-text { flex: 1; text-align: left; }
+    .ad-leaderboard-text .ad-title { font-size: 1rem; font-weight: 700; }
+    .ad-leaderboard-text .ad-desc { font-size: 0.82rem; color: var(--gray-600); }
+    .ad-leaderboard-btn { padding: 8px 18px; border-radius: 8px; color: white; font-weight: 700; font-size: 0.85rem; white-space: nowrap; flex-shrink: 0; }
+
+    /* EMAILJS SETUP BANNER */
+    .setup-banner { background: #eff6ff; border: 1px solid #bfdbfe; border-radius: var(--radius); padding: 1rem 1.25rem; margin-bottom: 1.5rem; font-size: 0.85rem; }
+    .setup-banner strong { color: var(--blue); }
+    .setup-banner code { background: #dbeafe; padding: 2px 6px; border-radius: 4px; font-family: monospace; font-size: 0.82rem; }
+    .setup-banner.hidden { display: none; }
+
     @media (max-width: 640px) {
       .stats-row { grid-template-columns: repeat(2,1fr); }
       .form-row { grid-template-columns: 1fr; }
@@ -278,6 +306,21 @@
 <!-- DISCLAIMER BANNER -->
 <div class="disclaimer-banner">
   ⚠️ <strong>ข้อมูลในระบบนี้รวบรวมจากหลายแหล่ง</strong> ซึ่งบางส่วนยังไม่ผ่านการยืนยัน — ใช้เป็นข้อมูลประกอบการตัดสินใจเท่านั้น ไม่ใช่การตัดสินทางกฎหมาย
+</div>
+
+<!-- AD: LEADERBOARD -->
+<div class="ad-wrapper" style="background:white;padding:8px 2rem;border-bottom:1px solid var(--gray-200);">
+  <div class="ad-label">โฆษณา</div>
+  <div class="ad-leaderboard" style="background:linear-gradient(90deg,#0f172a 0%,#1e3a5f 100%);" onclick="window.open('#','_blank')">
+    <div class="ad-leaderboard-inner">
+      <div class="ad-leaderboard-icon">🛡️</div>
+      <div class="ad-leaderboard-text">
+        <div class="ad-title" style="color:white;">Kaspersky Premium — ป้องกัน Phishing และ Scam อัตโนมัติ</div>
+        <div class="ad-desc" style="color:#94a3b8;">ตรวจจับลิงก์อันตราย บล็อก scammer call รักษาความปลอดภัยบัญชีธนาคาร</div>
+      </div>
+      <div class="ad-leaderboard-btn" style="background:#e63946;">ดาวน์โหลดฟรี 30 วัน</div>
+    </div>
+  </div>
 </div>
 
 <!-- TABS -->
@@ -320,6 +363,26 @@
       </div>
       <div class="loading" id="searchLoading"><div class="spinner"></div><span>AI กำลังตรวจสอบ...</span></div>
       <div class="result-box" id="searchResult"></div>
+    </div>
+
+    <!-- AD: RECTANGLE between cards -->
+    <div class="ad-wrapper">
+      <div class="ad-label">โฆษณา — ผลิตภัณฑ์ความปลอดภัยที่แนะนำ</div>
+      <div class="ad-rect" onclick="window.open('#','_blank')">
+        <div class="ad-color-block" style="background:#4f46e5;"></div>
+        <div class="ad-body">
+          <div class="ad-icon-wrap" style="background:#ede9fe;">🔒</div>
+          <div class="ad-text">
+            <div class="ad-title">NordVPN — ปกป้องตัวตนออนไลน์จาก Scammer</div>
+            <div class="ad-desc">เข้ารหัสการเชื่อมต่อ ซ่อน IP ป้องกัน Phishing และการดักข้อมูล</div>
+            <span class="ad-cta" style="background:#4f46e5;">ทดลองใช้ 30 วัน ฟรี →</span>
+          </div>
+          <div style="text-align:right;flex-shrink:0;">
+            <div style="font-size:1.25rem;font-weight:800;color:#4f46e5;">฿99<span style="font-size:0.75rem;font-weight:400;color:var(--gray-400);">/เดือน</span></div>
+            <div style="font-size:0.72rem;color:var(--gray-400);">ราคาพิเศษ</div>
+          </div>
+        </div>
+      </div>
     </div>
 
     <div class="card">
@@ -388,6 +451,22 @@
             <div class="source-name">รายงานจากผู้ใช้งาน</div>
             <div class="source-desc">Crowdsource — ยังไม่ยืนยัน</div>
             <div class="source-count">⏳ 1,181 รายการ</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- AD: Between sources and list -->
+    <div class="ad-wrapper">
+      <div class="ad-label">โฆษณา</div>
+      <div class="ad-rect" onclick="window.open('#','_blank')">
+        <div class="ad-color-block" style="background:#059669;"></div>
+        <div class="ad-body">
+          <div class="ad-icon-wrap" style="background:#d1fae5;">🏦</div>
+          <div class="ad-text">
+            <div class="ad-title">ประกันภัยไซเบอร์ — คุ้มครองเงินถ้าโดน Scam</div>
+            <div class="ad-desc">ชดเชยความเสียหายสูงสุด 500,000 บาท จากการโอนเงินผิดพลาด การแฮ็กบัญชี และการถูกหลอกลวงออนไลน์</div>
+            <span class="ad-cta" style="background:#059669;">เช็คเบี้ยประกัน ฟรี →</span>
           </div>
         </div>
       </div>
@@ -494,6 +573,16 @@
   <div id="tab-report" class="section">
 
     <!-- STEP 1: Email Verify -->
+    <!-- EmailJS setup guide (shown only when not configured) -->
+    <div class="setup-banner" id="emailjsSetupBanner">
+      <strong>⚙️ ตั้งค่า EmailJS เพื่อส่ง OTP จริง</strong><br>
+      1. สมัคร <strong>emailjs.com</strong> (ฟรี 200 อีเมล/เดือน)<br>
+      2. สร้าง Email Service (Gmail / Outlook)<br>
+      3. สร้าง Template — ใช้ตัวแปร <code>{{otp_code}}</code> และ <code>{{to_name}}</code><br>
+      4. แก้ค่าในโค้ด: <code>EMAILJS_PUBLIC_KEY</code>, <code>EMAILJS_SERVICE_ID</code>, <code>EMAILJS_TEMPLATE_ID</code><br>
+      <span style="color:var(--gray-400);font-size:0.8rem;">⚠️ ยังไม่ได้ตั้งค่า — ระบบจะใช้ OTP จำลอง (123456) แทน</span>
+    </div>
+
     <div class="card" id="step-email">
       <h2>📧 ยืนยันอีเมลก่อนรายงาน</h2>
       <p style="font-size:0.875rem;color:var(--gray-600);margin-bottom:1.25rem;line-height:1.6;">
@@ -927,29 +1016,82 @@ function copyText(btn,text) {
   });
 }
 
-// ===== EMAIL VERIFY (MOCK) =====
+// ===== EMAILJS CONFIG — แก้ค่าทั้ง 3 บรรทัดนี้หลัง setup EmailJS =====
+const EMAILJS_PUBLIC_KEY  = 'YOUR_PUBLIC_KEY';
+const EMAILJS_SERVICE_ID  = 'YOUR_SERVICE_ID';
+const EMAILJS_TEMPLATE_ID = 'YOUR_TEMPLATE_ID';
+const EMAILJS_CONFIGURED  = EMAILJS_PUBLIC_KEY !== 'YOUR_PUBLIC_KEY';
+
+// ===== EMAIL VERIFY =====
 let emailVerified = false;
+let currentOTP    = '';
+
+function generateOTP() {
+  return String(Math.floor(100000 + Math.random() * 900000));
+}
+
 function sendOTP() {
   const email = document.getElementById('reportEmail').value.trim();
   if (!email || !email.includes('@')) { alert('กรุณากรอกอีเมลให้ถูกต้อง'); return; }
-  document.getElementById('sendOtpBtn').textContent='ส่งแล้ว ✓';
-  document.getElementById('sendOtpBtn').disabled=true;
-  const status=document.getElementById('emailStatus');
-  status.className='email-status sent'; status.style.display='block';
-  status.textContent=`📧 ส่ง OTP ไปที่ ${email} แล้ว (Prototype: ใช้รหัส 123456)`;
-  document.getElementById('otpSection').classList.add('active');
+
+  const btn    = document.getElementById('sendOtpBtn');
+  const status = document.getElementById('emailStatus');
+  btn.textContent = 'กำลังส่ง...';
+  btn.disabled    = true;
+  currentOTP      = generateOTP();
+
+  if (EMAILJS_CONFIGURED) {
+    // ส่งอีเมลจริงผ่าน EmailJS
+    emailjs.init({ publicKey: EMAILJS_PUBLIC_KEY });
+    emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, {
+      to_email: email,
+      to_name:  email.split('@')[0],
+      otp_code: currentOTP,
+    })
+    .then(() => {
+      btn.textContent = 'ส่งแล้ว ✓';
+      status.className = 'email-status sent';
+      status.style.display = 'block';
+      status.textContent = `📧 ส่ง OTP ไปที่ ${email} แล้ว — กรุณาตรวจสอบกล่องจดหมาย`;
+      document.getElementById('otpSection').classList.add('active');
+    })
+    .catch(err => {
+      btn.textContent = 'ส่ง OTP';
+      btn.disabled = false;
+      status.className = 'email-status sent';
+      status.style.display = 'block';
+      status.textContent = `❌ ส่งอีเมลไม่สำเร็จ: ${err.text || err} — กรุณาตรวจสอบการตั้งค่า EmailJS`;
+    });
+  } else {
+    // Fallback: OTP จำลอง
+    btn.textContent = 'ส่งแล้ว ✓';
+    status.className = 'email-status sent';
+    status.style.display = 'block';
+    status.innerHTML = `📧 ส่ง OTP ไปที่ <strong>${email}</strong> แล้ว
+      <span style="background:#fef3c7;border:1px solid #fcd34d;border-radius:4px;padding:1px 6px;margin-left:6px;font-size:0.8rem;">
+        Demo: OTP = <strong>${currentOTP}</strong>
+      </span>`;
+    document.getElementById('otpSection').classList.add('active');
+  }
 }
+
 function verifyOTP() {
-  const otp=document.getElementById('otpInput').value.trim();
-  if (otp==='123456') {
-    emailVerified=true;
-    const status=document.getElementById('emailStatus');
-    status.className='email-status verified'; status.style.display='block';
-    status.textContent='✅ อีเมลยืนยันสำเร็จ! กรอกข้อมูล Scammer ด้านล่างได้เลย';
+  const otp    = document.getElementById('otpInput').value.trim();
+  const status = document.getElementById('emailStatus');
+  if (otp === currentOTP) {
+    emailVerified = true;
+    status.className = 'email-status verified';
+    status.style.display = 'block';
+    status.textContent = '✅ อีเมลยืนยันสำเร็จ! กรอกข้อมูล Scammer ด้านล่างได้เลย';
     document.getElementById('otpSection').classList.remove('active');
+    document.getElementById('emailjsSetupBanner').classList.add('hidden');
     setTimeout(()=>{ document.getElementById('step-form').style.display='block'; },400);
   } else {
-    alert('OTP ไม่ถูกต้อง (Prototype: ใช้รหัส 123456)');
+    status.className = 'email-status sent';
+    status.style.display = 'block';
+    status.textContent = '❌ OTP ไม่ถูกต้อง กรุณาลองใหม่';
+    document.getElementById('otpInput').value = '';
+    document.getElementById('otpInput').focus();
   }
 }
 
