@@ -356,6 +356,7 @@
         <button class="type-tab" onclick="setType(this,'bank')">🏦 บัญชีธนาคาร</button>
         <button class="type-tab" onclick="setType(this,'line')">💬 Line ID</button>
         <button class="type-tab" onclick="setType(this,'url')">🌐 URL</button>
+        <button class="type-tab" onclick="setType(this,'email')">📧 E-mail</button>
       </div>
       <div class="search-row">
         <input class="search-input" id="searchInput" type="text" placeholder="พิมพ์เบอร์โทร เช่น 081XXXX678" />
@@ -584,24 +585,64 @@
     </div>
 
     <div class="card" id="step-email">
-      <h2>📧 ยืนยันอีเมลก่อนรายงาน</h2>
+      <h2>🔐 ยืนยันตัวตนก่อนรายงาน</h2>
       <p style="font-size:0.875rem;color:var(--gray-600);margin-bottom:1.25rem;line-height:1.6;">
-        เพื่อป้องกันการรายงานซ้ำและรักษาคุณภาพข้อมูล กรุณายืนยันอีเมลของคุณก่อน (อีเมลจะไม่ถูกเปิดเผยสู่สาธารณะ)
+        เพื่อป้องกันการรายงานซ้ำและรักษาคุณภาพข้อมูล กรุณายืนยันตัวตนก่อน (ข้อมูลจะไม่ถูกเปิดเผยสู่สาธารณะ)
       </p>
-      <div class="form-group">
-        <label>อีเมล <span class="required">*</span></label>
-        <div style="display:flex;gap:8px;">
-          <input type="email" id="reportEmail" placeholder="your@email.com" style="flex:1;" />
-          <button class="btn btn-primary" onclick="sendOTP()" id="sendOtpBtn">ส่ง OTP</button>
-        </div>
-        <div class="email-status" id="emailStatus"></div>
+
+      <!-- Toggle: Email / SMS -->
+      <div class="type-tabs" style="margin-bottom:1.25rem;">
+        <button class="type-tab active" id="tabVerifyEmail" onclick="switchVerify('email')">📧 ยืนยันด้วย E-mail</button>
+        <button class="type-tab" id="tabVerifySms" onclick="switchVerify('sms')">📱 ยืนยันด้วย OTP (SMS)</button>
       </div>
-      <div class="verify-step" id="otpSection">
+
+      <!-- EMAIL MODE -->
+      <div id="verifyEmailSection">
         <div class="form-group">
-          <label>กรอก OTP 6 หลักที่ส่งไปยังอีเมล</label>
-          <div class="otp-row">
-            <input type="text" id="otpInput" maxlength="6" placeholder="123456" />
-            <button class="btn btn-primary" onclick="verifyOTP()">ยืนยัน OTP</button>
+          <label>อีเมล <span class="required">*</span></label>
+          <div style="display:flex;gap:8px;">
+            <input type="email" id="reportEmail" placeholder="your@email.com" style="flex:1;" />
+            <button class="btn btn-primary" onclick="sendOTP('email')" id="sendOtpBtn">ส่ง OTP</button>
+          </div>
+          <div class="email-status" id="emailStatus"></div>
+        </div>
+        <div class="verify-step" id="otpSection">
+          <div class="form-group">
+            <label>กรอก OTP 6 หลักที่ส่งไปยังอีเมล</label>
+            <div class="otp-row">
+              <input type="text" id="otpInput" maxlength="6" placeholder="______" />
+              <button class="btn btn-primary" onclick="verifyOTP()">ยืนยัน OTP</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- SMS MODE -->
+      <div id="verifySmsSection" style="display:none;">
+        <div style="background:var(--blue-light);border:1px solid #bfdbfe;border-radius:8px;padding:10px 14px;font-size:0.82rem;color:#1e40af;margin-bottom:1rem;">
+          📱 ใช้ <strong>Twilio / AWS SNS</strong> สำหรับ SMS OTP จริง — Demo ใช้ OTP จำลองแทน
+        </div>
+        <div class="form-group">
+          <label>เบอร์โทรศัพท์ <span class="required">*</span></label>
+          <div style="display:flex;gap:8px;">
+            <select id="phoneCountry" style="width:110px;padding:10px 8px;border:1.5px solid var(--gray-200);border-radius:8px;font-family:inherit;font-size:0.9rem;outline:none;">
+              <option value="+66">🇹🇭 +66</option>
+              <option value="+1">🇺🇸 +1</option>
+              <option value="+44">🇬🇧 +44</option>
+              <option value="+65">🇸🇬 +65</option>
+            </select>
+            <input type="tel" id="reportPhone" placeholder="081-234-5678" style="flex:1;padding:10px 14px;border:1.5px solid var(--gray-200);border-radius:8px;font-size:0.95rem;font-family:inherit;outline:none;" />
+            <button class="btn btn-primary" onclick="sendOTP('sms')" id="sendSmsBtn">ส่ง OTP</button>
+          </div>
+          <div class="email-status" id="smsStatus"></div>
+        </div>
+        <div class="verify-step" id="smsOtpSection">
+          <div class="form-group">
+            <label>กรอก OTP 6 หลักที่ส่งไปยังเบอร์โทร</label>
+            <div class="otp-row">
+              <input type="text" id="smsOtpInput" maxlength="6" placeholder="______" />
+              <button class="btn btn-primary" onclick="verifyOTP('sms')">ยืนยัน OTP</button>
+            </div>
           </div>
         </div>
       </div>
@@ -856,7 +897,7 @@ function switchTab(name) {
 
 // ===== SEARCH =====
 let currentType = 'phone';
-const placeholders = {phone:'เบอร์โทร เช่น 0812345678',bank:'เลขบัญชี เช่น 1234567890',line:'Line ID เช่น @invest_rich2024',url:'URL เช่น kbank-secure-login.com'};
+const placeholders = {phone:'เบอร์โทร เช่น 0812345678',bank:'เลขบัญชี เช่น 1234567890',line:'Line ID เช่น @invest_rich2024',url:'URL เช่น kbank-secure-login.com',email:'อีเมล เช่น scammer@fake-bank.com'};
 function setType(el,type) {
   document.querySelectorAll('.type-tab').forEach(t=>t.classList.remove('active'));
   el.classList.add('active'); currentType=type;
@@ -867,6 +908,8 @@ function setType(el,type) {
 const scamLookup = {
   '0812345678': mockDB[0],
   '0987654321': mockDB[5],
+  'scam@fake-bank.com':    { type:'email', target:'scam@fake-bank.com', desc:'อีเมลปลอมแอบอ้างเป็นธนาคาร ส่งลิงก์ phishing ขอ username/password', reports:67, source:'blacklist', verified:false, trustLevel:'high', trustDots:4 },
+  'prize@lottery-win.com': { type:'email', target:'prize@lottery-win.com', desc:'อีเมลแจ้งรางวัล 1 ล้านบาท ให้โอนค่าธรรมเนียมก่อนรับรางวัล', reports:142, source:'facebook', verified:false, trustLevel:'high', trustDots:4 },
 };
 
 function doSearch() {
@@ -879,8 +922,9 @@ function doSearch() {
   setTimeout(()=>{
     loading.style.display='none'; result.style.display='block';
     const clean = val.replace(/[-\s]/g,'');
-    const found = scamLookup[clean] ||
+    const found = scamLookup[clean] || scamLookup[val.toLowerCase()] ||
       (val.toLowerCase().includes('fake')||val.toLowerCase().includes('login') ? mockDB[3] : null) ||
+      (currentType==='email' && (val.includes('phish')||val.includes('fake')||val.includes('scam')) ? scamLookup['scam@fake-bank.com'] : null) ||
       (val==='@invest_rich2024' ? mockDB[2] : null);
 
     if (found) {
@@ -1022,76 +1066,104 @@ const EMAILJS_SERVICE_ID  = 'YOUR_SERVICE_ID';
 const EMAILJS_TEMPLATE_ID = 'YOUR_TEMPLATE_ID';
 const EMAILJS_CONFIGURED  = EMAILJS_PUBLIC_KEY !== 'YOUR_PUBLIC_KEY';
 
-// ===== EMAIL VERIFY =====
-let emailVerified = false;
-let currentOTP    = '';
-
-function generateOTP() {
-  return String(Math.floor(100000 + Math.random() * 900000));
+// ===== VERIFY MODE TOGGLE =====
+let verifyMode = 'email';
+function switchVerify(mode) {
+  verifyMode = mode;
+  document.getElementById('tabVerifyEmail').classList.toggle('active', mode==='email');
+  document.getElementById('tabVerifySms').classList.toggle('active',   mode==='sms');
+  document.getElementById('verifyEmailSection').style.display = mode==='email' ? 'block' : 'none';
+  document.getElementById('verifySmsSection').style.display   = mode==='sms'   ? 'block' : 'none';
 }
 
-function sendOTP() {
-  const email = document.getElementById('reportEmail').value.trim();
-  if (!email || !email.includes('@')) { alert('กรุณากรอกอีเมลให้ถูกต้อง'); return; }
+// ===== EMAIL + SMS OTP =====
+let emailVerified = false;
+let currentOTP    = '';
+let currentSmsOTP = '';
 
-  const btn    = document.getElementById('sendOtpBtn');
-  const status = document.getElementById('emailStatus');
-  btn.textContent = 'กำลังส่ง...';
-  btn.disabled    = true;
-  currentOTP      = generateOTP();
+function generateOTP() { return String(Math.floor(100000 + Math.random() * 900000)); }
 
-  if (EMAILJS_CONFIGURED) {
-    // ส่งอีเมลจริงผ่าน EmailJS
-    emailjs.init({ publicKey: EMAILJS_PUBLIC_KEY });
-    emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, {
-      to_email: email,
-      to_name:  email.split('@')[0],
-      otp_code: currentOTP,
-    })
-    .then(() => {
+function sendOTP(channel) {
+  if (channel === 'email') {
+    const email = document.getElementById('reportEmail').value.trim();
+    if (!email || !email.includes('@')) { alert('กรุณากรอกอีเมลให้ถูกต้อง'); return; }
+    const btn    = document.getElementById('sendOtpBtn');
+    const status = document.getElementById('emailStatus');
+    btn.textContent = 'กำลังส่ง...'; btn.disabled = true;
+    currentOTP = generateOTP();
+
+    if (EMAILJS_CONFIGURED) {
+      emailjs.init({ publicKey: EMAILJS_PUBLIC_KEY });
+      emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, {
+        to_email: email, to_name: email.split('@')[0], otp_code: currentOTP,
+      })
+      .then(() => {
+        btn.textContent = 'ส่งแล้ว ✓';
+        status.className = 'email-status sent'; status.style.display = 'block';
+        status.textContent = `📧 ส่ง OTP ไปที่ ${email} แล้ว — กรุณาตรวจสอบกล่องจดหมาย`;
+        document.getElementById('otpSection').classList.add('active');
+      })
+      .catch(err => {
+        btn.textContent = 'ส่ง OTP'; btn.disabled = false;
+        status.className = 'email-status sent'; status.style.display = 'block';
+        status.textContent = `❌ ส่งอีเมลไม่สำเร็จ: ${err.text || err}`;
+      });
+    } else {
       btn.textContent = 'ส่งแล้ว ✓';
-      status.className = 'email-status sent';
-      status.style.display = 'block';
-      status.textContent = `📧 ส่ง OTP ไปที่ ${email} แล้ว — กรุณาตรวจสอบกล่องจดหมาย`;
+      status.className = 'email-status sent'; status.style.display = 'block';
+      status.innerHTML = `📧 ส่ง OTP ไปที่ <strong>${email}</strong> แล้ว
+        <span style="background:#fef3c7;border:1px solid #fcd34d;border-radius:4px;padding:1px 6px;margin-left:6px;font-size:0.8rem;">
+          Demo: OTP = <strong>${currentOTP}</strong>
+        </span>`;
       document.getElementById('otpSection').classList.add('active');
-    })
-    .catch(err => {
-      btn.textContent = 'ส่ง OTP';
-      btn.disabled = false;
-      status.className = 'email-status sent';
-      status.style.display = 'block';
-      status.textContent = `❌ ส่งอีเมลไม่สำเร็จ: ${err.text || err} — กรุณาตรวจสอบการตั้งค่า EmailJS`;
-    });
-  } else {
-    // Fallback: OTP จำลอง
-    btn.textContent = 'ส่งแล้ว ✓';
-    status.className = 'email-status sent';
-    status.style.display = 'block';
-    status.innerHTML = `📧 ส่ง OTP ไปที่ <strong>${email}</strong> แล้ว
-      <span style="background:#fef3c7;border:1px solid #fcd34d;border-radius:4px;padding:1px 6px;margin-left:6px;font-size:0.8rem;">
-        Demo: OTP = <strong>${currentOTP}</strong>
-      </span>`;
-    document.getElementById('otpSection').classList.add('active');
+    }
+
+  } else if (channel === 'sms') {
+    const phone  = document.getElementById('reportPhone').value.trim();
+    const prefix = document.getElementById('phoneCountry').value;
+    if (!phone || phone.replace(/\D/g,'').length < 9) { alert('กรุณากรอกเบอร์โทรให้ถูกต้อง'); return; }
+    const btn    = document.getElementById('sendSmsBtn');
+    const status = document.getElementById('smsStatus');
+    btn.textContent = 'กำลังส่ง...'; btn.disabled = true;
+    currentSmsOTP = generateOTP();
+
+    // Simulate sending (Twilio / AWS SNS ในระบบจริง)
+    setTimeout(() => {
+      btn.textContent = 'ส่งแล้ว ✓';
+      status.className = 'email-status sent'; status.style.display = 'block';
+      status.innerHTML = `📱 ส่ง OTP ไปที่ <strong>${prefix} ${phone}</strong> แล้ว
+        <span style="background:#fef3c7;border:1px solid #fcd34d;border-radius:4px;padding:1px 6px;margin-left:6px;font-size:0.8rem;">
+          Demo: OTP = <strong>${currentSmsOTP}</strong>
+        </span>`;
+      document.getElementById('smsOtpSection').classList.add('active');
+    }, 800);
   }
 }
 
-function verifyOTP() {
-  const otp    = document.getElementById('otpInput').value.trim();
-  const status = document.getElementById('emailStatus');
-  if (otp === currentOTP) {
+function verifyOTP(channel) {
+  channel = channel || 'email';
+  const inputId  = channel === 'sms' ? 'smsOtpInput'  : 'otpInput';
+  const statusId = channel === 'sms' ? 'smsStatus'     : 'emailStatus';
+  const sectionId= channel === 'sms' ? 'smsOtpSection' : 'otpSection';
+  const expected = channel === 'sms' ? currentSmsOTP   : currentOTP;
+
+  const otp    = document.getElementById(inputId).value.trim();
+  const status = document.getElementById(statusId);
+
+  if (otp === expected) {
     emailVerified = true;
-    status.className = 'email-status verified';
-    status.style.display = 'block';
-    status.textContent = '✅ อีเมลยืนยันสำเร็จ! กรอกข้อมูล Scammer ด้านล่างได้เลย';
-    document.getElementById('otpSection').classList.remove('active');
+    status.className = 'email-status verified'; status.style.display = 'block';
+    status.textContent = channel === 'sms'
+      ? '✅ เบอร์โทรยืนยันสำเร็จ! กรอกข้อมูล Scammer ด้านล่างได้เลย'
+      : '✅ อีเมลยืนยันสำเร็จ! กรอกข้อมูล Scammer ด้านล่างได้เลย';
+    document.getElementById(sectionId).classList.remove('active');
     document.getElementById('emailjsSetupBanner').classList.add('hidden');
     setTimeout(()=>{ document.getElementById('step-form').style.display='block'; },400);
   } else {
-    status.className = 'email-status sent';
-    status.style.display = 'block';
+    status.className = 'email-status sent'; status.style.display = 'block';
     status.textContent = '❌ OTP ไม่ถูกต้อง กรุณาลองใหม่';
-    document.getElementById('otpInput').value = '';
-    document.getElementById('otpInput').focus();
+    document.getElementById(inputId).value = '';
+    document.getElementById(inputId).focus();
   }
 }
 
