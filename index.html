@@ -9,1217 +9,946 @@
     :root {
       --red: #e63946;
       --red-dark: #c1121f;
-      --red-light: #fff0f0;
-      --orange: #f4511e;
-      --orange-light: #fff4f1;
-      --green: #2a9d8f;
-      --green-light: #e8f8f6;
+      --red-light: #fff5f5;
+      --red-mid: #fecaca;
+      --ink: #111827;
+      --ink-soft: #4b5563;
+      --ink-muted: #9ca3af;
+      --surface: #ffffff;
+      --bg: #f8f8f8;
+      --border: #e5e7eb;
+      --green: #059669;
+      --green-light: #ecfdf5;
       --yellow: #d97706;
       --yellow-light: #fffbeb;
       --blue: #2563eb;
       --blue-light: #eff6ff;
-      --purple: #7c3aed;
-      --purple-light: #f5f3ff;
-      --gray-50: #f9fafb;
-      --gray-100: #f3f4f6;
-      --gray-200: #e5e7eb;
-      --gray-400: #9ca3af;
-      --gray-600: #4b5563;
-      --gray-800: #1f2937;
-      --white: #ffffff;
-      --radius: 12px;
-      --shadow: 0 4px 24px rgba(0,0,0,0.08);
+      --radius-sm: 8px;
+      --radius: 14px;
+      --radius-lg: 20px;
+      --shadow: 0 2px 12px rgba(0,0,0,0.07);
+      --shadow-md: 0 4px 24px rgba(0,0,0,0.10);
     }
     * { box-sizing: border-box; margin: 0; padding: 0; }
-    body { font-family: 'Sarabun','Segoe UI',sans-serif; background: var(--gray-50); color: var(--gray-800); min-height: 100vh; }
+    body { font-family: 'Sarabun','Segoe UI',sans-serif; background: var(--bg); color: var(--ink); min-height: 100vh; }
 
-    /* NAV */
-    nav { background: var(--white); border-bottom: 1px solid var(--gray-200); padding: 0 2rem; display: flex; align-items: center; justify-content: space-between; height: 60px; position: sticky; top: 0; z-index: 100; box-shadow: 0 2px 8px rgba(0,0,0,0.06); }
-    .logo { display: flex; align-items: center; gap: 8px; font-size: 1.25rem; font-weight: 700; color: var(--red); text-decoration: none; }
-    .nav-links { display: flex; gap: 1.5rem; list-style: none; }
-    .nav-links a { text-decoration: none; color: var(--gray-600); font-size: 0.9rem; font-weight: 500; padding: 6px 12px; border-radius: 8px; transition: all 0.2s; }
-    .nav-links a:hover, .nav-links a.active { color: var(--red); background: var(--red-light); }
-    .nav-report-btn { background: var(--red); color: white !important; border-radius: 8px; }
-    .nav-report-btn:hover { background: var(--red-dark) !important; color: white !important; }
-
-    /* TABS */
-    .tabs-wrapper { background: var(--white); border-bottom: 1px solid var(--gray-200); }
-    .tabs { max-width: 960px; margin: 0 auto; display: flex; padding: 0 1rem; }
-    .tab-btn { background: none; border: none; padding: 1rem 1.5rem; font-size: 0.95rem; font-weight: 600; color: var(--gray-400); cursor: pointer; border-bottom: 3px solid transparent; transition: all 0.2s; display: flex; align-items: center; gap: 6px; font-family: inherit; }
-    .tab-btn:hover { color: var(--gray-800); }
-    .tab-btn.active { color: var(--red); border-bottom-color: var(--red); }
-
-    /* DISCLAIMER BANNER */
-    .disclaimer-banner { background: #fffbeb; border-bottom: 1px solid #fcd34d; padding: 8px 2rem; font-size: 0.8rem; color: #92400e; text-align: center; }
-    .disclaimer-banner strong { color: #78350f; }
-
-    main { max-width: 960px; margin: 2rem auto; padding: 0 1rem; }
-    .section { display: none; }
-    .section.active { display: block; }
-
-    /* HERO */
-    .hero { text-align: center; padding: 2.5rem 1rem 2rem; background: linear-gradient(135deg,#fff5f5 0%,#fff 100%); border-radius: var(--radius); border: 1px solid #fecaca; margin-bottom: 2rem; }
-    .hero h1 { font-size: 2rem; font-weight: 800; margin-bottom: 0.5rem; }
-    .hero h1 span { color: var(--red); }
-    .hero p { color: var(--gray-600); font-size: 1rem; }
-
-    /* STATS */
-    .stats-row { display: grid; grid-template-columns: repeat(4,1fr); gap: 1rem; margin-bottom: 2rem; }
-    .stat-card { background: var(--white); border-radius: var(--radius); padding: 1.25rem; text-align: center; border: 1px solid var(--gray-200); box-shadow: var(--shadow); }
-    .stat-card .number { font-size: 1.6rem; font-weight: 800; display: block; }
-    .stat-card .label { font-size: 0.78rem; color: var(--gray-600); margin-top: 2px; }
-    .stat-card.red .number { color: var(--red); }
-    .stat-card.green .number { color: var(--green); }
-    .stat-card.yellow .number { color: var(--yellow); }
-    .stat-card.blue .number { color: var(--blue); }
-
-    /* CARDS */
-    .card { background: var(--white); border-radius: var(--radius); padding: 1.75rem; box-shadow: var(--shadow); border: 1px solid var(--gray-200); margin-bottom: 1.5rem; }
-    .card h2 { font-size: 1.1rem; font-weight: 700; margin-bottom: 1rem; display: flex; align-items: center; gap: 8px; }
-
-    /* TYPE TABS */
-    .type-tabs { display: flex; gap: 8px; margin-bottom: 1rem; flex-wrap: wrap; }
-    .type-tab { padding: 6px 14px; border-radius: 20px; border: 1.5px solid var(--gray-200); background: none; font-size: 0.85rem; cursor: pointer; color: var(--gray-600); font-weight: 500; transition: all 0.2s; font-family: inherit; }
-    .type-tab.active, .type-tab:hover { border-color: var(--red); color: var(--red); background: var(--red-light); }
-
-    /* INPUTS */
-    .search-row { display: flex; gap: 10px; }
-    .search-input { flex: 1; padding: 12px 16px; border: 1.5px solid var(--gray-200); border-radius: 10px; font-size: 1rem; outline: none; transition: border-color 0.2s; font-family: inherit; }
-    .search-input:focus { border-color: var(--red); }
-    textarea { width: 100%; min-height: 130px; border: 1.5px solid var(--gray-200); border-radius: 10px; padding: 12px 16px; font-size: 0.95rem; font-family: inherit; resize: vertical; outline: none; transition: border-color 0.2s; }
-    textarea:focus { border-color: var(--red); }
-
-    /* BUTTONS */
-    .btn { padding: 10px 22px; border-radius: 10px; border: none; font-size: 0.9rem; font-weight: 700; cursor: pointer; transition: all 0.2s; font-family: inherit; }
-    .btn-primary { background: var(--red); color: white; }
-    .btn-primary:hover { background: var(--red-dark); }
-    .btn-secondary { background: var(--gray-100); color: var(--gray-800); }
-    .btn-secondary:hover { background: var(--gray-200); }
-    .btn-outline { background: none; border: 1.5px solid var(--gray-200); color: var(--gray-600); padding: 6px 14px; font-size: 0.82rem; }
-    .btn-outline:hover { border-color: var(--red); color: var(--red); background: var(--red-light); }
-    .btn-row { display: flex; gap: 10px; margin-top: 10px; flex-wrap: wrap; }
-
-    /* LOADING */
-    .loading { display: none; align-items: center; gap: 10px; color: var(--gray-400); font-size: 0.9rem; margin-top: 12px; }
-    .spinner { width: 18px; height: 18px; border: 2px solid var(--gray-200); border-top-color: var(--red); border-radius: 50%; animation: spin 0.8s linear infinite; }
-    @keyframes spin { to { transform: rotate(360deg); } }
-    @keyframes fadeIn { from { opacity:0; transform:translateY(6px); } to { opacity:1; transform:translateY(0); } }
-
-    /* RESULT BOX */
-    .result-box { border-radius: var(--radius); padding: 1.25rem 1.5rem; margin-top: 1.25rem; display: none; animation: fadeIn 0.3s ease; }
-    .result-box.danger { background: #fff0f0; border: 1.5px solid #fca5a5; }
-    .result-box.safe { background: var(--green-light); border: 1.5px solid #6ee7df; }
-    .result-box.warning { background: var(--yellow-light); border: 1.5px solid #fcd34d; }
-    .result-header { display: flex; align-items: center; gap: 10px; margin-bottom: 0.75rem; }
-    .result-icon { font-size: 1.75rem; }
-    .result-title { font-size: 1.1rem; font-weight: 700; }
-    .result-box.danger .result-title { color: var(--red); }
-    .result-box.safe .result-title { color: var(--green); }
-    .result-box.warning .result-title { color: var(--yellow); }
-    .result-list { list-style: none; margin-top: 0.5rem; }
-    .result-list li { font-size: 0.9rem; color: var(--gray-700); padding: 4px 0; display: flex; align-items: flex-start; gap: 6px; }
-    .result-list li::before { content:"•"; color:var(--red); font-weight:700; flex-shrink:0; }
-
-    /* RISK BAR */
-    .risk-bar-wrap { margin: 0.75rem 0; }
-    .risk-bar-label { font-size: 0.8rem; color: var(--gray-600); margin-bottom: 4px; }
-    .risk-bar-track { height: 8px; background: var(--gray-200); border-radius: 99px; overflow: hidden; }
-    .risk-bar-fill { height: 100%; border-radius: 99px; transition: width 0.8s ease; }
-    .risk-bar-fill.red { background: var(--red); }
-    .risk-bar-fill.green { background: var(--green); }
-    .risk-bar-fill.yellow { background: var(--yellow); }
-    .risk-bar-fill.orange { background: var(--orange); }
-
-    /* SIGNALS */
-    .signals-grid { display: grid; grid-template-columns: repeat(2,1fr); gap: 8px; margin-top: 1rem; }
-    .signal-chip { display: flex; align-items: center; gap: 8px; padding: 8px 12px; border-radius: 8px; font-size: 0.85rem; font-weight: 600; }
-    .signal-chip.found { background: #fff0f0; color: var(--red); border: 1px solid #fca5a5; }
-    .signal-chip.ok { background: var(--green-light); color: var(--green); border: 1px solid #6ee7df; }
-
-    /* ===== TRUST SCORE ===== */
-    .trust-badge { display: inline-flex; align-items: center; gap: 5px; padding: 3px 10px; border-radius: 20px; font-size: 0.75rem; font-weight: 700; }
-    .trust-badge.verified-police { background: #fee2e2; color: #991b1b; border: 1px solid #fca5a5; }
-    .trust-badge.verified-bank { background: #fef3c7; color: #92400e; border: 1px solid #fcd34d; }
-    .trust-badge.high { background: #ffedd5; color: #c2410c; border: 1px solid #fed7aa; }
-    .trust-badge.medium { background: var(--yellow-light); color: var(--yellow); border: 1px solid #fcd34d; }
-    .trust-badge.low { background: var(--green-light); color: var(--green); border: 1px solid #6ee7df; }
-
-    .trust-meter { display: flex; gap: 3px; align-items: center; margin-top: 4px; }
-    .trust-dot { width: 10px; height: 10px; border-radius: 50%; background: var(--gray-200); }
-    .trust-dot.filled-red { background: var(--red); }
-    .trust-dot.filled-orange { background: var(--orange); }
-    .trust-dot.filled-yellow { background: var(--yellow); }
-    .trust-label { font-size: 0.72rem; color: var(--gray-400); margin-left: 4px; }
-
-    /* ===== SOURCE BADGE ===== */
-    .source-badge { display: inline-flex; align-items: center; gap: 4px; padding: 2px 8px; border-radius: 6px; font-size: 0.72rem; font-weight: 600; }
-    .source-police { background: #eff6ff; color: var(--blue); border: 1px solid #bfdbfe; }
-    .source-bank { background: #f0fdf4; color: #166534; border: 1px solid #bbf7d0; }
-    .source-facebook { background: #eff6ff; color: #1d4ed8; border: 1px solid #bfdbfe; }
-    .source-blacklist { background: #f5f3ff; color: var(--purple); border: 1px solid #ddd6fe; }
-    .source-line { background: #f0fdf4; color: #15803d; border: 1px solid #bbf7d0; }
-    .source-user { background: var(--gray-100); color: var(--gray-600); border: 1px solid var(--gray-200); }
-
-    /* DB LIST */
-    .report-list { list-style: none; }
-    .report-item { background: var(--white); border: 1px solid var(--gray-200); border-radius: var(--radius); padding: 1rem 1.25rem; margin-bottom: 10px; transition: box-shadow 0.2s; }
-    .report-item:hover { box-shadow: var(--shadow); }
-    .report-item-top { display: flex; align-items: flex-start; gap: 12px; }
-    .report-type-badge { padding: 4px 10px; border-radius: 6px; font-size: 0.75rem; font-weight: 700; white-space: nowrap; flex-shrink: 0; }
-    .badge-call { background: #fee2e2; color: var(--red); }
-    .badge-bank { background: #fef3c7; color: #92400e; }
-    .badge-line { background: #dcfce7; color: #166534; }
-    .badge-web { background: #ede9fe; color: #5b21b6; }
-    .badge-sms { background: #dbeafe; color: #1e40af; }
-    .report-info { flex: 1; }
-    .report-target { font-weight: 700; font-size: 0.95rem; color: var(--gray-800); font-family: monospace; }
-    .report-desc { font-size: 0.85rem; color: var(--gray-600); margin-top: 2px; line-height: 1.5; }
-    .report-meta-row { display: flex; align-items: center; gap: 8px; margin-top: 6px; flex-wrap: wrap; }
-    .report-count-badge { font-size: 0.75rem; color: var(--red); font-weight: 700; background: var(--red-light); padding: 2px 8px; border-radius: 20px; border: 1px solid #fca5a5; }
-
-    /* DISCLAIMER on card */
-    .unverified-note { font-size: 0.75rem; color: var(--gray-400); font-style: italic; margin-top: 2px; }
-
-    /* APPEAL BUTTON SECTION */
-    .report-footer { border-top: 1px solid var(--gray-100); margin-top: 10px; padding-top: 8px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 6px; }
-    .report-date { font-size: 0.75rem; color: var(--gray-400); }
-
-    /* MODAL */
-    .modal-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.5); z-index: 200; align-items: center; justify-content: center; }
-    .modal-overlay.open { display: flex; }
-    .modal { background: white; border-radius: var(--radius); padding: 2rem; max-width: 480px; width: 90%; box-shadow: 0 20px 60px rgba(0,0,0,0.2); animation: fadeIn 0.2s ease; }
-    .modal h3 { font-size: 1.1rem; font-weight: 700; margin-bottom: 0.5rem; }
-    .modal p { font-size: 0.875rem; color: var(--gray-600); margin-bottom: 1.25rem; line-height: 1.6; }
-    .modal .form-group { margin-bottom: 1rem; }
-    .modal .form-group label { display: block; font-size: 0.85rem; font-weight: 600; margin-bottom: 5px; }
-    .modal .form-group input, .modal .form-group textarea, .modal .form-group select { width: 100%; padding: 9px 13px; border: 1.5px solid var(--gray-200); border-radius: 8px; font-size: 0.9rem; font-family: inherit; outline: none; }
-    .modal .form-group input:focus, .modal .form-group textarea:focus { border-color: var(--red); }
-    .modal-footer { display: flex; gap: 10px; justify-content: flex-end; margin-top: 1.25rem; }
-    .modal-close { position: absolute; top: 1rem; right: 1rem; background: none; border: none; font-size: 1.25rem; cursor: pointer; color: var(--gray-400); }
-
-    /* SOURCE INFO */
-    .sources-section { background: var(--white); border-radius: var(--radius); padding: 1.5rem; border: 1px solid var(--gray-200); margin-bottom: 1.5rem; }
-    .sources-section h3 { font-size: 0.95rem; font-weight: 700; margin-bottom: 1rem; color: var(--gray-600); }
-    .source-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 10px; }
-    .source-item { display: flex; align-items: flex-start; gap: 8px; padding: 10px 12px; border-radius: 8px; border: 1px solid var(--gray-200); background: var(--gray-50); }
-    .source-icon { font-size: 1.25rem; flex-shrink: 0; }
-    .source-info .source-name { font-size: 0.82rem; font-weight: 700; color: var(--gray-800); }
-    .source-info .source-desc { font-size: 0.75rem; color: var(--gray-400); margin-top: 1px; }
-    .source-info .source-count { font-size: 0.72rem; color: var(--green); font-weight: 600; margin-top: 2px; }
-
-    /* FILTER */
-    .filter-row { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 1rem; }
-    .filter-chip { padding: 5px 12px; border-radius: 20px; border: 1.5px solid var(--gray-200); background: none; font-size: 0.8rem; cursor: pointer; color: var(--gray-600); font-weight: 500; transition: all 0.2s; font-family: inherit; }
-    .filter-chip.active { border-color: var(--red); color: var(--red); background: var(--red-light); }
-
-    /* SECTION HEADER */
-    .section-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 1.25rem; }
-    .section-header h2 { font-size: 1.15rem; font-weight: 700; }
-
-    /* STEPS */
-    .steps-list { list-style: none; }
-    .step-item { display: flex; gap: 1rem; margin-bottom: 1rem; background: var(--white); border: 1px solid var(--gray-200); border-radius: var(--radius); padding: 1.25rem; box-shadow: var(--shadow); }
-    .step-item.step-urgent { border-left: 4px solid var(--red); }
-    .step-number { width: 36px; height: 36px; border-radius: 50%; background: var(--red); color: white; font-weight: 800; font-size: 1rem; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
-    .step-content h3 { font-size: 1rem; font-weight: 700; margin-bottom: 4px; }
-    .step-content p { font-size: 0.875rem; color: var(--gray-600); line-height: 1.6; }
-    .contact-links { margin-top: 8px; display: flex; flex-wrap: wrap; gap: 6px; }
-    .contact-link { display: inline-block; padding: 4px 12px; background: var(--red-light); color: var(--red); border-radius: 6px; font-size: 0.8rem; font-weight: 600; text-decoration: none; border: 1px solid #fca5a5; transition: all 0.2s; }
-    .contact-link:hover { background: var(--red); color: white; }
-
-    /* FORM */
-    .form-group { margin-bottom: 1.25rem; }
-    .form-group label { display: block; font-size: 0.875rem; font-weight: 600; color: var(--gray-700); margin-bottom: 6px; }
-    .form-group label .required { color: var(--red); margin-left: 2px; }
-    .form-group input, .form-group select, .form-group textarea { width: 100%; padding: 10px 14px; border: 1.5px solid var(--gray-200); border-radius: 8px; font-size: 0.95rem; font-family: inherit; outline: none; transition: border-color 0.2s; }
-    .form-group input:focus, .form-group select:focus, .form-group textarea:focus { border-color: var(--red); }
-    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
-
-    /* EMAIL VERIFY */
-    .verify-step { display: none; }
-    .verify-step.active { display: block; }
-    .otp-row { display: flex; gap: 8px; margin-top: 8px; }
-    .otp-row input { flex:1; text-align:center; font-size:1.25rem; font-weight:700; letter-spacing: 6px; }
-    .email-status { display: none; padding: 8px 12px; border-radius: 8px; font-size: 0.85rem; margin-top: 8px; }
-    .email-status.sent { background: var(--blue-light); color: var(--blue); border: 1px solid #bfdbfe; }
-    .email-status.verified { background: var(--green-light); color: var(--green); border: 1px solid #6ee7df; }
-
-    /* AI PATTERN ALERT */
-    .pattern-alert { display:none; padding: 10px 14px; border-radius: 8px; font-size: 0.85rem; margin-top: 10px; }
-    .pattern-alert.warning { background: var(--yellow-light); border: 1px solid #fcd34d; color: var(--yellow); }
-    .pattern-alert.blocked { background: var(--red-light); border: 1px solid #fca5a5; color: var(--red); }
-
-    .success-toast { display: none; background: var(--green-light); border: 1px solid #6ee7df; border-radius: var(--radius); padding: 1rem 1.25rem; color: var(--green); font-weight: 600; margin-top: 1rem; animation: fadeIn 0.3s ease; }
-
-    footer { text-align: center; padding: 2rem; color: var(--gray-400); font-size: 0.82rem; margin-top: 3rem; border-top: 1px solid var(--gray-200); }
-
-    /* ===== ADS ===== */
-    .ad-wrapper { text-align: center; margin: 1.25rem 0; }
-    .ad-label { font-size: 0.7rem; color: var(--gray-400); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 4px; }
-    .ad-leaderboard { display: inline-flex; align-items: center; justify-content: space-between; width: 100%; max-width: 728px; height: 90px; border-radius: 10px; border: 1px solid var(--gray-200); overflow: hidden; background: white; box-shadow: 0 2px 8px rgba(0,0,0,0.05); cursor: pointer; transition: box-shadow 0.2s; }
-    .ad-leaderboard:hover { box-shadow: var(--shadow); }
-    .ad-rect { display: inline-flex; align-items: stretch; width: 100%; border-radius: 10px; border: 1px solid var(--gray-200); overflow: hidden; background: white; box-shadow: 0 2px 8px rgba(0,0,0,0.05); cursor: pointer; transition: box-shadow 0.2s; min-height: 80px; }
-    .ad-rect:hover { box-shadow: var(--shadow); }
-    .ad-color-block { width: 6px; flex-shrink: 0; }
-    .ad-body { display: flex; align-items: center; gap: 14px; padding: 14px 18px; flex: 1; }
-    .ad-icon-wrap { width: 44px; height: 44px; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 1.4rem; flex-shrink: 0; }
-    .ad-text { flex: 1; text-align: left; }
-    .ad-text .ad-title { font-size: 0.9rem; font-weight: 700; color: var(--gray-800); }
-    .ad-text .ad-desc { font-size: 0.8rem; color: var(--gray-600); margin-top: 2px; }
-    .ad-text .ad-cta { font-size: 0.75rem; font-weight: 700; margin-top: 5px; display: inline-block; padding: 3px 10px; border-radius: 6px; color: white; }
-    .ad-leaderboard-inner { display: flex; align-items: center; gap: 16px; padding: 0 20px; width: 100%; }
-    .ad-leaderboard-icon { font-size: 2rem; flex-shrink: 0; }
-    .ad-leaderboard-text { flex: 1; text-align: left; }
-    .ad-leaderboard-text .ad-title { font-size: 1rem; font-weight: 700; }
-    .ad-leaderboard-text .ad-desc { font-size: 0.82rem; color: var(--gray-600); }
-    .ad-leaderboard-btn { padding: 8px 18px; border-radius: 8px; color: white; font-weight: 700; font-size: 0.85rem; white-space: nowrap; flex-shrink: 0; }
-
-    /* EMAILJS SETUP BANNER */
-    .setup-banner { background: #eff6ff; border: 1px solid #bfdbfe; border-radius: var(--radius); padding: 1rem 1.25rem; margin-bottom: 1.5rem; font-size: 0.85rem; }
-    .setup-banner strong { color: var(--blue); }
-    .setup-banner code { background: #dbeafe; padding: 2px 6px; border-radius: 4px; font-family: monospace; font-size: 0.82rem; }
-    .setup-banner.hidden { display: none; }
-
-    @media (max-width: 640px) {
-      .stats-row { grid-template-columns: repeat(2,1fr); }
-      .form-row { grid-template-columns: 1fr; }
-      .signals-grid { grid-template-columns: 1fr; }
-      .source-grid { grid-template-columns: 1fr; }
-      .nav-links { display: none; }
-      .hero h1 { font-size: 1.5rem; }
+    /* ── NAV ── */
+    nav {
+      background: var(--surface);
+      border-bottom: 1px solid var(--border);
+      padding: 0 2rem;
+      display: flex; align-items: center; justify-content: space-between;
+      height: 58px; position: sticky; top: 0; z-index: 200;
+      box-shadow: 0 1px 6px rgba(0,0,0,0.06);
     }
+    .logo { display:flex; align-items:center; gap:8px; font-size:1.15rem; font-weight:800; color:var(--red); text-decoration:none; letter-spacing:-0.3px; }
+    .logo-shield { font-size:1.4rem; }
+    .nav-links { display:flex; gap:0.5rem; list-style:none; }
+    .nav-links a { text-decoration:none; color:var(--ink-soft); font-size:0.875rem; font-weight:600; padding:6px 14px; border-radius:var(--radius-sm); transition:all 0.18s; }
+    .nav-links a:hover { color:var(--red); background:var(--red-light); }
+    .nav-links a.active { color:var(--red); }
+    .nav-cta { background:var(--red) !important; color:#fff !important; border-radius:var(--radius-sm) !important; }
+    .nav-cta:hover { background:var(--red-dark) !important; color:#fff !important; }
+
+    /* ── NOTICE BAR ── */
+    .notice-bar { background:#fffbeb; border-bottom:1px solid #fcd34d; padding:7px 2rem; font-size:0.78rem; color:#92400e; text-align:center; }
+    .notice-bar strong { color:#78350f; }
+
+    /* ── MAIN ── */
+    main { max-width: 920px; margin: 0 auto; padding: 0 1rem; }
+    .section { display:none; }
+    .section.active { display:block; }
+
+    /* ── TAB BAR ── */
+    .tabbar { background:var(--surface); border-bottom:1px solid var(--border); }
+    .tabbar-inner { max-width:920px; margin:0 auto; display:flex; padding:0 1rem; }
+    .tabbtn { background:none; border:none; padding:14px 18px; font-size:0.875rem; font-weight:700; color:var(--ink-muted); cursor:pointer; border-bottom:2.5px solid transparent; transition:all 0.18s; display:flex; align-items:center; gap:6px; font-family:inherit; white-space:nowrap; }
+    .tabbtn:hover { color:var(--ink); }
+    .tabbtn.active { color:var(--red); border-bottom-color:var(--red); }
+
+    /* ── HERO ── */
+    .hero { padding:3.5rem 1rem 2.5rem; text-align:center; }
+    .hero-badge { display:inline-flex; align-items:center; gap:6px; background:var(--red-light); border:1px solid var(--red-mid); color:var(--red); font-size:0.78rem; font-weight:700; padding:5px 12px; border-radius:99px; margin-bottom:1.25rem; letter-spacing:0.3px; }
+    .hero-badge span { width:7px; height:7px; border-radius:50%; background:var(--red); display:inline-block; animation:pulse-dot 1.8s infinite; }
+    .hero h1 { font-size:2.4rem; font-weight:900; letter-spacing:-1px; line-height:1.15; margin-bottom:0.75rem; }
+    .hero h1 em { font-style:normal; color:var(--red); }
+    .hero p { color:var(--ink-soft); font-size:1rem; max-width:480px; margin:0 auto 2rem; line-height:1.6; }
+    @keyframes pulse-dot { 0%,100%{opacity:1;} 50%{opacity:0.35;} }
+
+    /* ── SEARCH BOX ── */
+    .search-wrap { max-width:600px; margin:0 auto 1rem; }
+    .search-box { display:flex; background:var(--surface); border:1.5px solid var(--border); border-radius:var(--radius-lg); overflow:hidden; box-shadow:var(--shadow-md); transition:border-color 0.2s; }
+    .search-box:focus-within { border-color:var(--red); }
+    .search-type-sel { border:none; border-right:1.5px solid var(--border); padding:0 14px; background:var(--bg); color:var(--ink-soft); font-size:0.85rem; font-weight:600; font-family:inherit; cursor:pointer; outline:none; min-width:120px; }
+    .search-type-sel:focus { outline:none; }
+    .search-q { flex:1; border:none; padding:14px 16px; font-size:1rem; font-family:inherit; outline:none; background:transparent; }
+    .search-q::placeholder { color:var(--ink-muted); }
+    .search-go { margin:6px; background:var(--red); color:#fff; border:none; padding:0 24px; border-radius:var(--radius); font-size:0.9rem; font-weight:700; cursor:pointer; transition:background 0.18s; font-family:inherit; white-space:nowrap; }
+    .search-go:hover { background:var(--red-dark); }
+
+    /* ── INLINE STATS ── */
+    .stats-strip { display:flex; justify-content:center; gap:2.5rem; margin:0 auto 1rem; max-width:600px; flex-wrap:wrap; }
+    .stat-item { text-align:center; }
+    .stat-item .n { font-size:1.5rem; font-weight:900; display:block; color:var(--red); letter-spacing:-0.5px; }
+    .stat-item .lbl { font-size:0.75rem; color:var(--ink-muted); font-weight:600; text-transform:uppercase; letter-spacing:0.5px; }
+
+    /* ── RESULT ── */
+    .result-area { margin-top:1.5rem; }
+    .result-box { background:var(--surface); border-radius:var(--radius); padding:2rem; box-shadow:var(--shadow); border:1.5px solid var(--border); }
+    .result-safe { border-color:#a7f3d0; background:#f0fdf8; }
+    .result-danger { border-color:#fca5a5; background:#fff5f5; }
+    .result-warn { border-color:#fde68a; background:#fffbeb; }
+    .result-header { display:flex; align-items:flex-start; gap:1rem; margin-bottom:1.25rem; }
+    .result-icon { font-size:2.5rem; flex-shrink:0; }
+    .result-title { font-size:1.2rem; font-weight:800; }
+    .result-subtitle { font-size:0.875rem; color:var(--ink-soft); margin-top:3px; }
+
+    /* TRUST METER */
+    .trust-meter { margin:1rem 0; }
+    .meter-label { display:flex; justify-content:space-between; font-size:0.78rem; font-weight:700; margin-bottom:5px; }
+    .meter-track { height:8px; background:var(--border); border-radius:99px; overflow:hidden; }
+    .meter-fill { height:100%; border-radius:99px; transition:width 0.5s; }
+    .fill-safe { background:var(--green); }
+    .fill-warn { background:var(--yellow); }
+    .fill-danger { background:var(--red); }
+
+    /* BADGES */
+    .badge { display:inline-flex; align-items:center; gap:4px; padding:3px 10px; border-radius:99px; font-size:0.72rem; font-weight:700; }
+    .badge-vp { background:#e0f2fe; color:#0369a1; }
+    .badge-vb { background:#dcfce7; color:#15803d; }
+    .badge-hi { background:#fee2e2; color:#dc2626; }
+    .badge-md { background:#fef9c3; color:#b45309; }
+    .badge-lo { background:#f3f4f6; color:#4b5563; }
+
+    /* INFO ROWS */
+    .info-grid { display:grid; grid-template-columns:1fr 1fr; gap:0.75rem; margin:1rem 0; }
+    .info-cell { background:var(--bg); border-radius:var(--radius-sm); padding:0.75rem 1rem; }
+    .info-cell .key { font-size:0.72rem; color:var(--ink-muted); font-weight:600; text-transform:uppercase; letter-spacing:0.4px; }
+    .info-cell .val { font-size:0.9rem; font-weight:700; margin-top:3px; }
+
+    /* REPORT COUNT */
+    .report-count { display:flex; align-items:center; gap:0.5rem; font-size:0.85rem; color:var(--ink-soft); margin-top:0.75rem; }
+    .report-count strong { color:var(--red); font-size:1rem; }
+
+    /* ── CARD ── */
+    .card { background:var(--surface); border-radius:var(--radius); padding:1.75rem; box-shadow:var(--shadow); border:1px solid var(--border); margin-bottom:1.25rem; }
+    .card-title { font-size:1rem; font-weight:800; margin-bottom:1rem; display:flex; align-items:center; gap:8px; }
+
+    /* ── FORM ELEMENTS ── */
+    .field { margin-bottom:1.25rem; }
+    .field label { display:block; font-size:0.82rem; font-weight:700; color:var(--ink-soft); margin-bottom:6px; text-transform:uppercase; letter-spacing:0.4px; }
+    input[type=text], input[type=email], textarea, select {
+      width:100%; border:1.5px solid var(--border); border-radius:var(--radius-sm);
+      padding:11px 14px; font-size:0.95rem; font-family:inherit; outline:none;
+      transition:border-color 0.18s; background:var(--surface); color:var(--ink);
+    }
+    input:focus, textarea:focus, select:focus { border-color:var(--red); }
+    textarea { min-height:110px; resize:vertical; }
+
+    /* ── BUTTONS ── */
+    .btn { padding:11px 24px; border-radius:var(--radius-sm); border:none; font-size:0.9rem; font-weight:700; cursor:pointer; transition:all 0.18s; font-family:inherit; display:inline-flex; align-items:center; gap:6px; }
+    .btn-primary { background:var(--red); color:#fff; }
+    .btn-primary:hover { background:var(--red-dark); }
+    .btn-secondary { background:var(--bg); color:var(--ink); border:1.5px solid var(--border); }
+    .btn-secondary:hover { border-color:var(--red); color:var(--red); }
+    .btn-sm { padding:7px 14px; font-size:0.8rem; }
+    .btn-row { display:flex; gap:8px; flex-wrap:wrap; margin-top:10px; }
+
+    /* ── OTP TOGGLE ── */
+    .verify-toggle { display:flex; background:var(--bg); border:1.5px solid var(--border); border-radius:var(--radius-sm); padding:3px; margin-bottom:1rem; width:fit-content; }
+    .vtab { padding:7px 18px; border-radius:6px; border:none; background:none; font-size:0.85rem; font-weight:700; color:var(--ink-muted); cursor:pointer; transition:all 0.18s; font-family:inherit; }
+    .vtab.active { background:var(--surface); color:var(--red); box-shadow:0 1px 4px rgba(0,0,0,0.10); }
+
+    /* COUNTRY CODE */
+    .phone-row { display:flex; gap:8px; }
+    .country-sel { width:130px; flex-shrink:0; }
+
+    /* OTP INPUT */
+    .otp-row { display:flex; gap:8px; align-items:center; }
+    .otp-input { width:160px; letter-spacing:4px; font-weight:700; text-align:center; }
+
+    /* ── DB ── */
+    .db-toolbar { display:flex; gap:8px; margin-bottom:1.25rem; flex-wrap:wrap; align-items:center; }
+    .db-search { flex:1; min-width:180px; }
+    .filter-chip { padding:6px 14px; border-radius:99px; border:1.5px solid var(--border); background:none; font-size:0.8rem; font-weight:700; color:var(--ink-muted); cursor:pointer; transition:all 0.18s; font-family:inherit; }
+    .filter-chip.active, .filter-chip:hover { border-color:var(--red); color:var(--red); background:var(--red-light); }
+
+    .entry-card { background:var(--surface); border-radius:var(--radius); padding:1.25rem 1.5rem; box-shadow:var(--shadow); border:1px solid var(--border); margin-bottom:0.875rem; display:flex; align-items:center; gap:1.25rem; }
+    .entry-icon { font-size:1.75rem; flex-shrink:0; }
+    .entry-body { flex:1; min-width:0; }
+    .entry-value { font-size:0.95rem; font-weight:800; color:var(--ink); }
+    .entry-meta { font-size:0.78rem; color:var(--ink-muted); margin-top:3px; display:flex; gap:10px; flex-wrap:wrap; }
+    .entry-right { display:flex; align-items:center; gap:8px; flex-shrink:0; }
+
+    /* SOURCE LINKS */
+    .sources-section { margin-bottom:1.5rem; }
+    .sources-title { font-size:0.82rem; font-weight:700; color:var(--ink-soft); text-transform:uppercase; letter-spacing:0.5px; margin-bottom:0.75rem; }
+    .sources-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(160px,1fr)); gap:0.75rem; }
+    .src-link {
+      display:flex; align-items:center; gap:10px;
+      background:var(--surface); border:1.5px solid var(--border); border-radius:var(--radius-sm);
+      padding:0.875rem 1rem; text-decoration:none; color:var(--ink);
+      transition:all 0.18s; cursor:pointer;
+    }
+    .src-link:hover { border-color:var(--red); background:var(--red-light); color:var(--red); }
+    .src-link .src-icon { font-size:1.5rem; flex-shrink:0; }
+    .src-link .src-info {}
+    .src-link .src-name { font-size:0.82rem; font-weight:800; display:block; }
+    .src-link .src-desc { font-size:0.72rem; color:var(--ink-muted); display:block; margin-top:1px; }
+    .src-link:hover .src-desc { color:var(--red); opacity:0.8; }
+
+    /* SYNC BAR */
+    .sync-bar { display:flex; align-items:center; gap:10px; background:var(--surface); border:1px solid var(--border); border-radius:var(--radius-sm); padding:10px 14px; margin-bottom:1.25rem; font-size:0.82rem; color:var(--ink-soft); }
+    .sync-dot { width:8px; height:8px; border-radius:50%; background:var(--green); flex-shrink:0; animation:pulse-dot 2s infinite; }
+    .sync-dot.stale { background:var(--yellow); }
+    .sync-status { flex:1; }
+    .sync-btn { background:none; border:1.5px solid var(--border); border-radius:6px; padding:4px 12px; font-size:0.78rem; font-weight:700; color:var(--ink-soft); cursor:pointer; font-family:inherit; transition:all 0.18s; }
+    .sync-btn:hover { border-color:var(--red); color:var(--red); }
+
+    /* ── COMPLAINT STEPS ── */
+    .steps { counter-reset:step; }
+    .step { display:flex; gap:1rem; margin-bottom:1.5rem; }
+    .step::before { counter-increment:step; content:counter(step); width:28px; height:28px; border-radius:50%; background:var(--red); color:#fff; font-size:0.8rem; font-weight:900; display:flex; align-items:center; justify-content:center; flex-shrink:0; margin-top:2px; }
+    .step-body h4 { font-size:0.95rem; font-weight:800; margin-bottom:4px; }
+    .step-body p { font-size:0.85rem; color:var(--ink-soft); line-height:1.55; }
+    .step-body a { color:var(--red); }
+    .agency-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(200px,1fr)); gap:0.75rem; margin:1rem 0; }
+    .agency-card { background:var(--bg); border-radius:var(--radius-sm); padding:1rem; border:1px solid var(--border); }
+    .agency-card strong { display:block; font-size:0.88rem; margin-bottom:4px; }
+    .agency-card span { font-size:0.78rem; color:var(--ink-soft); }
+
+    /* ── MODAL ── */
+    .modal-overlay { display:none; position:fixed; inset:0; background:rgba(0,0,0,0.45); z-index:500; align-items:center; justify-content:center; }
+    .modal-overlay.open { display:flex; }
+    .modal { background:var(--surface); border-radius:var(--radius); padding:2rem; max-width:460px; width:90%; box-shadow:var(--shadow-md); position:relative; }
+    .modal h3 { font-size:1.1rem; font-weight:800; margin-bottom:1rem; }
+    .modal-close { position:absolute; top:1rem; right:1rem; background:none; border:none; font-size:1.25rem; cursor:pointer; color:var(--ink-muted); }
+
+    /* ── AD ── */
+    .ad-slot { background:var(--surface); border:1.5px dashed var(--border); border-radius:var(--radius-sm); padding:1rem; text-align:center; color:var(--ink-muted); font-size:0.78rem; margin-bottom:1.5rem; }
+    .ad-kaspersky { padding:0; overflow:hidden; border:1.5px solid #e9e9e9; }
+    .ad-kaspersky a { display:flex; align-items:center; justify-content:space-between; padding:10px 20px; text-decoration:none; background:linear-gradient(90deg,#fff 0%,#f5f5f5 100%); gap:1rem; }
+    .ad-kaspersky .ad-left { display:flex; align-items:center; gap:10px; }
+    .ad-kaspersky .ad-logo { font-size:1.6rem; }
+    .ad-kaspersky .ad-text { text-align:left; }
+    .ad-kaspersky .ad-text strong { display:block; font-size:0.85rem; color:#2b2b2b; }
+    .ad-kaspersky .ad-text span { font-size:0.75rem; color:#666; }
+    .ad-kaspersky .ad-cta { background:#e63946; color:#fff; padding:8px 18px; border-radius:var(--radius-sm); font-size:0.8rem; font-weight:700; white-space:nowrap; }
+    .ad-label { font-size:0.65rem; color:var(--ink-muted); text-align:right; padding:3px 8px; background:#fafafa; display:block; }
+
+    /* ── ALERT ── */
+    .alert { border-radius:var(--radius-sm); padding:12px 16px; margin-bottom:1rem; font-size:0.88rem; }
+    .alert-info { background:var(--blue-light); color:#1e40af; border-left:3px solid var(--blue); }
+    .alert-warn { background:var(--yellow-light); color:#92400e; border-left:3px solid var(--yellow); }
+    .alert-success { background:var(--green-light); color:#064e3b; border-left:3px solid var(--green); }
+    .alert-danger { background:var(--red-light); color:#991b1b; border-left:3px solid var(--red); }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width:640px) {
+      nav { padding:0 1rem; }
+      .hero h1 { font-size:1.7rem; }
+      .stats-strip { gap:1.5rem; }
+      .info-grid { grid-template-columns:1fr; }
+      .phone-row { flex-direction:column; }
+      .country-sel { width:100%; }
+    }
+
+    /* ── UTIL ── */
+    .hidden { display:none !important; }
+    .mt-1 { margin-top:0.5rem; }
+    .mt-2 { margin-top:1rem; }
+    .divider { height:1px; background:var(--border); margin:1.25rem 0; }
+    .text-muted { color:var(--ink-muted); font-size:0.82rem; }
+    .chip { display:inline-flex; align-items:center; gap:4px; padding:3px 10px; border-radius:99px; font-size:0.72rem; font-weight:700; }
+    .chip-police { background:#dbeafe; color:#1d4ed8; }
+    .chip-bank { background:#d1fae5; color:#065f46; }
+    .chip-blacklist { background:#fef3c7; color:#b45309; }
+    .chip-facebook { background:#ede9fe; color:#6d28d9; }
+    .chip-line { background:#dcfce7; color:#166534; }
+    .chip-user { background:#f3f4f6; color:#374151; }
   </style>
 </head>
 <body>
 
 <!-- NAV -->
 <nav>
-  <a class="logo" href="#">🛡️ ScamCheck</a>
+  <a class="logo" href="#" onclick="gotoTab('check');return false;">
+    <span class="logo-shield">🛡️</span> ScamCheck
+  </a>
   <ul class="nav-links">
-    <li><a href="#" class="active" onclick="switchTab('check');return false;">ตรวจสอบ</a></li>
-    <li><a href="#" onclick="switchTab('db');return false;">ฐานข้อมูล</a></li>
-    <li><a href="#" onclick="switchTab('recovery');return false;">โดนหลอกแล้ว?</a></li>
-    <li><a href="#" class="nav-report-btn" onclick="switchTab('report');return false;">+ รายงาน</a></li>
+    <li><a href="#" onclick="gotoTab('check');return false;" id="nav-check" class="active">ตรวจสอบ</a></li>
+    <li><a href="#" onclick="gotoTab('db');return false;" id="nav-db">ฐานข้อมูล</a></li>
+    <li><a href="#" onclick="gotoTab('complaint');return false;" id="nav-complaint">โดนหลอก?</a></li>
+    <li><a href="#" onclick="gotoTab('report');return false;" id="nav-report" class="nav-cta">รายงาน Scammer</a></li>
   </ul>
 </nav>
 
-<!-- DISCLAIMER BANNER -->
-<div class="disclaimer-banner">
-  ⚠️ <strong>ข้อมูลในระบบนี้รวบรวมจากหลายแหล่ง</strong> ซึ่งบางส่วนยังไม่ผ่านการยืนยัน — ใช้เป็นข้อมูลประกอบการตัดสินใจเท่านั้น ไม่ใช่การตัดสินทางกฎหมาย
+<!-- NOTICE BAR -->
+<div class="notice-bar">
+  <strong>⚠️ ข้อควรระวัง:</strong> ข้อมูลในระบบเป็นการรวบรวมจากแหล่งสาธารณะ ไม่ใช่หลักฐานทางกฎหมาย ใช้เพื่อประกอบการตัดสินใจเท่านั้น
 </div>
 
-<!-- AD: LEADERBOARD -->
-<div class="ad-wrapper" style="background:white;padding:8px 2rem;border-bottom:1px solid var(--gray-200);">
-  <div class="ad-label">โฆษณา</div>
-  <div class="ad-leaderboard" style="background:linear-gradient(90deg,#0f172a 0%,#1e3a5f 100%);" onclick="window.open('#','_blank')">
-    <div class="ad-leaderboard-inner">
-      <div class="ad-leaderboard-icon">🛡️</div>
-      <div class="ad-leaderboard-text">
-        <div class="ad-title" style="color:white;">Kaspersky Premium — ป้องกัน Phishing และ Scam อัตโนมัติ</div>
-        <div class="ad-desc" style="color:#94a3b8;">ตรวจจับลิงก์อันตราย บล็อก scammer call รักษาความปลอดภัยบัญชีธนาคาร</div>
-      </div>
-      <div class="ad-leaderboard-btn" style="background:#e63946;">ดาวน์โหลดฟรี 30 วัน</div>
-    </div>
+<!-- TAB BAR -->
+<div class="tabbar">
+  <div class="tabbar-inner">
+    <button class="tabbtn active" id="tab-check" onclick="gotoTab('check')">🔍 ตรวจสอบ</button>
+    <button class="tabbtn" id="tab-db" onclick="gotoTab('db')">🗄️ ฐานข้อมูล</button>
+    <button class="tabbtn" id="tab-complaint" onclick="gotoTab('complaint')">🚨 โดนหลอกแล้ว?</button>
+    <button class="tabbtn" id="tab-report" onclick="gotoTab('report')">📝 รายงาน</button>
   </div>
 </div>
 
-<!-- TABS -->
-<div class="tabs-wrapper">
-  <div class="tabs">
-    <button class="tab-btn active" onclick="switchTab('check')">🔍 ตรวจสอบ</button>
-    <button class="tab-btn" onclick="switchTab('db')">📋 ฐานข้อมูล</button>
-    <button class="tab-btn" onclick="switchTab('recovery')">🆘 โดนหลอกแล้ว?</button>
-    <button class="tab-btn" onclick="switchTab('report')">📢 รายงาน</button>
-  </div>
-</div>
-
+<!-- ══ SECTION: CHECK ══ -->
 <main>
+<div class="section active" id="sec-check">
 
-  <!-- ===== TAB: CHECK ===== -->
-  <div id="tab-check" class="section active">
-    <div class="hero">
-      <h1>ตรวจสอบ <span>Scammer</span> ก่อนโดนหลอก</h1>
-      <p>ค้นหาเบอร์โทร บัญชีธนาคาร Line ID หรือ URL — ก่อนจะสายเกินไป</p>
-    </div>
+  <!-- HERO -->
+  <div class="hero">
+    <div class="hero-badge"><span></span> AI-Powered Scam Detection</div>
+    <h1>ตรวจสอบ<em> Scammer </em><br>ก่อนโอนเงิน</h1>
+    <p>ค้นหาเบอร์โทร บัญชีธนาคาร Line ID URL หรืออีเมล ว่าเคยถูกรายงานเป็น Scammer ไว้หรือไม่</p>
 
-    <div class="stats-row">
-      <div class="stat-card red"><span class="number">12,847</span><span class="label">รายงาน Scam ทั้งหมด</span></div>
-      <div class="stat-card blue"><span class="number">4,231</span><span class="label">ยืนยันแล้วโดยราชการ</span></div>
-      <div class="stat-card green"><span class="number">89,203</span><span class="label">การตรวจสอบเดือนนี้</span></div>
-      <div class="stat-card yellow"><span class="number">342</span><span class="label">รายงานใหม่วันนี้</span></div>
-    </div>
-
-    <div class="card">
-      <h2>🔍 ค้นหาข้อมูล Scammer</h2>
-      <div class="type-tabs">
-        <button class="type-tab active" onclick="setType(this,'phone')">📞 เบอร์โทร</button>
-        <button class="type-tab" onclick="setType(this,'bank')">🏦 บัญชีธนาคาร</button>
-        <button class="type-tab" onclick="setType(this,'line')">💬 Line ID</button>
-        <button class="type-tab" onclick="setType(this,'url')">🌐 URL</button>
-        <button class="type-tab" onclick="setType(this,'email')">📧 E-mail</button>
-      </div>
-      <div class="search-row">
-        <input class="search-input" id="searchInput" type="text" placeholder="พิมพ์เบอร์โทร เช่น 081XXXX678" />
-        <button class="btn btn-primary" onclick="doSearch()">ตรวจสอบ</button>
-      </div>
-      <div class="loading" id="searchLoading"><div class="spinner"></div><span>AI กำลังตรวจสอบ...</span></div>
-      <div class="result-box" id="searchResult"></div>
-    </div>
-
-    <!-- AD: RECTANGLE between cards -->
-    <div class="ad-wrapper">
-      <div class="ad-label">โฆษณา — ผลิตภัณฑ์ความปลอดภัยที่แนะนำ</div>
-      <div class="ad-rect" onclick="window.open('#','_blank')">
-        <div class="ad-color-block" style="background:#4f46e5;"></div>
-        <div class="ad-body">
-          <div class="ad-icon-wrap" style="background:#ede9fe;">🔒</div>
-          <div class="ad-text">
-            <div class="ad-title">NordVPN — ปกป้องตัวตนออนไลน์จาก Scammer</div>
-            <div class="ad-desc">เข้ารหัสการเชื่อมต่อ ซ่อน IP ป้องกัน Phishing และการดักข้อมูล</div>
-            <span class="ad-cta" style="background:#4f46e5;">ทดลองใช้ 30 วัน ฟรี →</span>
-          </div>
-          <div style="text-align:right;flex-shrink:0;">
-            <div style="font-size:1.25rem;font-weight:800;color:#4f46e5;">฿99<span style="font-size:0.75rem;font-weight:400;color:var(--gray-400);">/เดือน</span></div>
-            <div style="font-size:0.72rem;color:var(--gray-400);">ราคาพิเศษ</div>
-          </div>
-        </div>
+    <!-- SEARCH BOX -->
+    <div class="search-wrap">
+      <div class="search-box">
+        <select class="search-type-sel" id="searchType" onchange="updatePlaceholder()">
+          <option value="phone">📞 เบอร์โทร</option>
+          <option value="bank">🏦 บัญชีธนาคาร</option>
+          <option value="line">💬 Line ID</option>
+          <option value="url">🌐 URL</option>
+          <option value="email">✉️ อีเมล</option>
+        </select>
+        <input class="search-q" id="searchQ" type="text" placeholder="กรอกเบอร์โทรที่ต้องการตรวจสอบ..." onkeydown="if(event.key==='Enter')doSearch()" />
+        <button class="search-go" onclick="doSearch()">🔍 ตรวจสอบ</button>
       </div>
     </div>
 
-    <div class="card">
-      <h2>🤖 AI วิเคราะห์ข้อความต้องสงสัย</h2>
-      <p style="font-size:0.85rem;color:var(--gray-400);margin-bottom:1rem;">วางข้อความ SMS, Line หรือข้อความที่ได้รับมาแล้วรู้สึกสงสัย ให้ AI ช่วยวิเคราะห์</p>
-      <textarea id="analyzeText" placeholder="เช่น: &quot;ยินดีด้วย! คุณได้รับรางวัลที่ 1 มูลค่า 500,000 บาท กรุณาโอนค่าธรรมเนียม 500 บาทเพื่อรับรางวัล...&quot;"></textarea>
-      <div class="btn-row">
-        <button class="btn btn-primary" onclick="analyzeText()">🔍 วิเคราะห์ด้วย AI</button>
-        <button class="btn btn-secondary" onclick="document.getElementById('analyzeText').value='';document.getElementById('analyzeResult').style.display='none'">ล้าง</button>
-      </div>
-      <div class="loading" id="analyzeLoading"><div class="spinner"></div><span>AI กำลังวิเคราะห์ข้อความ...</span></div>
-      <div class="result-box" id="analyzeResult"></div>
+    <!-- STATS STRIP -->
+    <div class="stats-strip">
+      <div class="stat-item"><span class="n" id="stat-total">2,847</span><span class="lbl">รายการในฐานข้อมูล</span></div>
+      <div class="stat-item"><span class="n" id="stat-today">38</span><span class="lbl">รายงานวันนี้</span></div>
+      <div class="stat-item"><span class="n" id="stat-verified">312</span><span class="lbl">ยืนยันโดยตำรวจ/ธนาคาร</span></div>
+      <div class="stat-item"><span class="n" id="stat-searches">14,201</span><span class="lbl">การค้นหาทั้งหมด</span></div>
     </div>
   </div>
 
-  <!-- ===== TAB: DATABASE ===== -->
-  <div id="tab-db" class="section">
+  <!-- AD: KASPERSKY -->
+  <div class="ad-slot ad-kaspersky">
+    <span class="ad-label">Sponsored</span>
+    <a href="https://www.kaspersky.com" target="_blank" rel="noopener">
+      <div class="ad-left">
+        <div class="ad-logo">🛡️</div>
+        <div class="ad-text">
+          <strong>Kaspersky Total Security</strong>
+          <span>ป้องกัน Scam · Phishing · Malware ด้วย AI — ลองฟรี 30 วัน</span>
+        </div>
+      </div>
+      <div class="ad-cta">รับโปรโมชั่น →</div>
+    </a>
+  </div>
 
-    <!-- SOURCE INFO -->
+  <!-- RESULT AREA -->
+  <div class="result-area hidden" id="resultArea">
+    <div class="result-box" id="resultBox">
+      <div class="result-header">
+        <div class="result-icon" id="resultIcon">🤔</div>
+        <div>
+          <div class="result-title" id="resultTitle">กำลังตรวจสอบ...</div>
+          <div class="result-subtitle" id="resultSubtitle"></div>
+        </div>
+      </div>
+      <div class="trust-meter" id="trustMeter">
+        <div class="meter-label">
+          <span id="trustLabel">ระดับความน่าเชื่อถือ</span>
+          <span id="trustScore"></span>
+        </div>
+        <div class="meter-track"><div class="meter-fill" id="meterFill" style="width:0%"></div></div>
+      </div>
+      <div class="info-grid" id="infoGrid"></div>
+      <div class="report-count hidden" id="reportCountWrap">
+        <span>🚨</span>
+        <span>ถูกรายงาน <strong id="reportCountNum">0</strong> ครั้ง จากผู้ใช้ทั่วไป</span>
+      </div>
+      <div class="divider"></div>
+      <div class="btn-row">
+        <button class="btn btn-secondary btn-sm" onclick="openAppeal()">📋 ขอให้ลบข้อมูล / ยื่นอุทธรณ์</button>
+        <button class="btn btn-secondary btn-sm" onclick="gotoTab('report')">📝 เพิ่มรายงาน</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- AI ANALYSIS CARD -->
+  <div class="card mt-2">
+    <div class="card-title">🤖 วิเคราะห์ข้อความด้วย AI</div>
+    <div class="field">
+      <label>วางข้อความที่ได้รับ</label>
+      <textarea id="analyzeText" placeholder="เช่น: &quot;คุณได้รับรางวัล 50,000 บาท กรุณาโอนค่าธรรมเนียม 500 บาทก่อน...&quot;"></textarea>
+    </div>
+    <button class="btn btn-primary" onclick="doAnalyze()">🧠 วิเคราะห์ข้อความ</button>
+    <div id="analyzeResult" class="mt-2"></div>
+  </div>
+
+</div><!-- /sec-check -->
+
+<!-- ══ SECTION: DB ══ -->
+<div class="section" id="sec-db">
+  <div style="padding-top:2rem;">
+
+    <!-- SYNC BAR -->
+    <div class="sync-bar">
+      <div class="sync-dot" id="syncDot"></div>
+      <div class="sync-status" id="syncStatus">ข้อมูลล่าสุด: เพิ่งโหลด — ซิงค์อัตโนมัติทุก 60 วินาที</div>
+      <button class="sync-btn" onclick="manualSync()">🔄 ซิงค์ตอนนี้</button>
+    </div>
+
+    <!-- SOURCES -->
     <div class="sources-section">
-      <h3>📡 แหล่งข้อมูลที่ใช้</h3>
-      <div class="source-grid">
-        <div class="source-item">
-          <span class="source-icon">👮</span>
-          <div class="source-info">
-            <div class="source-name">ตำรวจไซเบอร์ (1441)</div>
-            <div class="source-desc">ข้อมูลยืนยันจากทางการ</div>
-            <div class="source-count">✅ 2,341 รายการ</div>
+      <div class="sources-title">📡 แหล่งข้อมูลที่ใช้</div>
+      <div class="sources-grid">
+        <a class="src-link" href="https://www.thaipoliceonline.com" target="_blank" rel="noopener">
+          <span class="src-icon">👮</span>
+          <div class="src-info">
+            <span class="src-name">ตำรวจไทยออนไลน์</span>
+            <span class="src-desc">thaipoliceonline.com</span>
           </div>
-        </div>
-        <div class="source-item">
-          <span class="source-icon">🏦</span>
-          <div class="source-info">
-            <div class="source-name">Blacklist ธนาคาร</div>
-            <div class="source-desc">บัญชีที่ธนาคารยืนยัน</div>
-            <div class="source-count">✅ 1,890 รายการ</div>
+        </a>
+        <a class="src-link" href="https://www.bot.or.th/th/financial-consumer/alert-scam.html" target="_blank" rel="noopener">
+          <span class="src-icon">🏦</span>
+          <div class="src-info">
+            <span class="src-name">ธนาคารแห่งประเทศไทย</span>
+            <span class="src-desc">bot.or.th</span>
           </div>
-        </div>
-        <div class="source-item">
-          <span class="source-icon">🌐</span>
-          <div class="source-info">
-            <div class="source-name">blacklistseller.com</div>
-            <div class="source-desc">ฐานข้อมูล scam ออนไลน์</div>
-            <div class="source-count">📋 3,102 รายการ</div>
+        </a>
+        <a class="src-link" href="https://www.blacklistseller.com" target="_blank" rel="noopener">
+          <span class="src-icon">📋</span>
+          <div class="src-info">
+            <span class="src-name">Blacklist Seller</span>
+            <span class="src-desc">blacklistseller.com</span>
           </div>
-        </div>
-        <div class="source-item">
-          <span class="source-icon">📘</span>
-          <div class="source-info">
-            <div class="source-name">Facebook แจ้งเตือน Scam</div>
-            <div class="source-desc">เพจ/กลุ่มแจ้งเตือน scam</div>
-            <div class="source-count">📋 2,877 รายการ</div>
+        </a>
+        <a class="src-link" href="https://www.facebook.com/groups/scamthailand" target="_blank" rel="noopener">
+          <span class="src-icon">👥</span>
+          <div class="src-info">
+            <span class="src-name">กลุ่ม Scam Thailand</span>
+            <span class="src-desc">facebook.com/groups</span>
           </div>
-        </div>
-        <div class="source-item">
-          <span class="source-icon">💚</span>
-          <div class="source-info">
-            <div class="source-name">LINE แจ้งเตือนธนาคาร</div>
-            <div class="source-desc">Official Account ธนาคาร</div>
-            <div class="source-count">✅ 1,456 รายการ</div>
+        </a>
+        <a class="src-link" href="https://line.me/R/ti/p/@kasikornbank" target="_blank" rel="noopener">
+          <span class="src-icon">💬</span>
+          <div class="src-info">
+            <span class="src-name">KBank Live Chat</span>
+            <span class="src-desc">แจ้ง Scam ผ่าน LINE</span>
           </div>
-        </div>
-        <div class="source-item">
-          <span class="source-icon">👥</span>
-          <div class="source-info">
-            <div class="source-name">รายงานจากผู้ใช้งาน</div>
-            <div class="source-desc">Crowdsource — ยังไม่ยืนยัน</div>
-            <div class="source-count">⏳ 1,181 รายการ</div>
+        </a>
+        <a class="src-link" href="#" onclick="gotoTab('report');return false;">
+          <span class="src-icon">👤</span>
+          <div class="src-info">
+            <span class="src-name">ผู้ใช้งาน (Crowdsource)</span>
+            <span class="src-desc">รายงานจากชุมชน</span>
           </div>
-        </div>
+        </a>
       </div>
     </div>
 
-    <!-- AD: Between sources and list -->
-    <div class="ad-wrapper">
-      <div class="ad-label">โฆษณา</div>
-      <div class="ad-rect" onclick="window.open('#','_blank')">
-        <div class="ad-color-block" style="background:#059669;"></div>
-        <div class="ad-body">
-          <div class="ad-icon-wrap" style="background:#d1fae5;">🏦</div>
-          <div class="ad-text">
-            <div class="ad-title">ประกันภัยไซเบอร์ — คุ้มครองเงินถ้าโดน Scam</div>
-            <div class="ad-desc">ชดเชยความเสียหายสูงสุด 500,000 บาท จากการโอนเงินผิดพลาด การแฮ็กบัญชี และการถูกหลอกลวงออนไลน์</div>
-            <span class="ad-cta" style="background:#059669;">เช็คเบี้ยประกัน ฟรี →</span>
-          </div>
-        </div>
-      </div>
+    <!-- DB TOOLBAR -->
+    <div class="db-toolbar">
+      <input class="db-search field" type="text" id="dbSearch" placeholder="🔍 ค้นหาในฐานข้อมูล..." oninput="filterDB()" style="margin:0;" />
+      <button class="filter-chip active" data-filter="all" onclick="setFilter(this,'all')">ทั้งหมด</button>
+      <button class="filter-chip" data-filter="phone" onclick="setFilter(this,'phone')">📞 เบอร์โทร</button>
+      <button class="filter-chip" data-filter="bank" onclick="setFilter(this,'bank')">🏦 บัญชี</button>
+      <button class="filter-chip" data-filter="line" onclick="setFilter(this,'line')">💬 Line</button>
+      <button class="filter-chip" data-filter="url" onclick="setFilter(this,'url')">🌐 URL</button>
+      <button class="filter-chip" data-filter="email" onclick="setFilter(this,'email')">✉️ Email</button>
     </div>
 
-    <div class="section-header">
-      <h2>📋 รายการรายงาน</h2>
-      <span style="font-size:0.85rem;color:var(--gray-400)">อัพเดทล่าสุด: 5 นาทีที่แล้ว</span>
-    </div>
+    <!-- DB LIST -->
+    <div id="dbList"></div>
 
-    <div class="filter-row">
-      <button class="filter-chip active" onclick="filterDB(this,'all')">ทั้งหมด</button>
-      <button class="filter-chip" onclick="filterDB(this,'phone')">📞 เบอร์โทร</button>
-      <button class="filter-chip" onclick="filterDB(this,'bank')">🏦 บัญชีธนาคาร</button>
-      <button class="filter-chip" onclick="filterDB(this,'line')">💬 Line</button>
-      <button class="filter-chip" onclick="filterDB(this,'web')">🌐 เว็บไซต์</button>
-      <button class="filter-chip" onclick="filterDB(this,'sms')">📱 SMS</button>
-      <button class="filter-chip" onclick="filterDB(this,'verified')">✅ ยืนยันแล้ว</button>
-    </div>
-
-    <ul class="report-list" id="dbList"></ul>
   </div>
+</div><!-- /sec-db -->
 
-  <!-- ===== TAB: RECOVERY ===== -->
-  <div id="tab-recovery" class="section">
-    <div class="card" style="background:#fff5f5;border-color:#fca5a5;">
-      <h2 style="color:var(--red)">🆘 โดนหลอกแล้ว? ทำตามขั้นตอนนี้ทันที</h2>
-      <p style="font-size:0.9rem;color:var(--gray-600)">อย่าตื่นตระหนก ทำตามขั้นตอนให้ครบ มีโอกาสได้เงินคืนและหยุดความเสียหายได้</p>
-    </div>
+<!-- ══ SECTION: COMPLAINT ══ -->
+<div class="section" id="sec-complaint">
+  <div style="padding-top:2rem;">
 
-    <ul class="steps-list">
-      <li class="step-item step-urgent">
-        <div class="step-number">1</div>
-        <div class="step-content">
-          <h3>🚨 โทรแจ้งธนาคารทันที — ภายใน 30 นาที</h3>
-          <p>โทรหาธนาคารที่คุณโอนเงินออกไป แจ้งว่าโดนหลอกให้โอนเงิน ขอให้ระงับธุรกรรมและอายัดบัญชีปลายทาง <strong>ยิ่งเร็วยิ่งมีโอกาสได้คืน</strong></p>
-          <div class="contact-links">
-            <a class="contact-link" href="#">SCB 02-777-7777</a>
-            <a class="contact-link" href="#">KBANK 02-888-8888</a>
-            <a class="contact-link" href="#">BBL 02-333-0000</a>
-            <a class="contact-link" href="#">KTB 1551</a>
-            <a class="contact-link" href="#">TMB 1558</a>
-          </div>
-        </div>
-      </li>
-      <li class="step-item step-urgent">
-        <div class="step-number">2</div>
-        <div class="step-content">
-          <h3>📞 แจ้งสายด่วนตำรวจไซเบอร์ 1441</h3>
-          <p>โทร <strong>1441</strong> หรือแจ้งออนไลน์ สามารถแจ้งได้ตลอด 24 ชั่วโมง</p>
-          <div class="contact-links">
-            <a class="contact-link" href="#">โทร 1441</a>
-            <a class="contact-link" href="#">thaipoliceonline.com</a>
-          </div>
-        </div>
-      </li>
-      <li class="step-item">
-        <div class="step-number">3</div>
-        <div class="step-content">
-          <h3>📸 เก็บหลักฐานทุกอย่าง</h3>
-          <p>สกรีนช็อตบทสนทนา, สลิปโอนเงิน, เบอร์โทร, Line ID — ห้ามลบหรือบล็อก เพราะต้องใช้เป็นหลักฐาน</p>
-        </div>
-      </li>
-      <li class="step-item">
-        <div class="step-number">4</div>
-        <div class="step-content">
-          <h3>🏛️ แจ้งความที่สถานีตำรวจท้องที่</h3>
-          <p>นำหลักฐานทั้งหมดไปด้วย บันทึกเลขคดีไว้สำหรับติดตาม</p>
-        </div>
-      </li>
-      <li class="step-item">
-        <div class="step-number">5</div>
-        <div class="step-content">
-          <h3>🛡️ แจ้ง DSI กรณีมูลค่าสูง</h3>
-          <p>หากความเสียหายสูงหรือเป็นแก๊งข้ามชาติ</p>
-          <div class="contact-links"><a class="contact-link" href="#">DSI 1202</a></div>
-        </div>
-      </li>
-      <li class="step-item">
-        <div class="step-number">6</div>
-        <div class="step-content">
-          <h3>📢 แจ้งเตือนคนอื่นใน ScamCheck</h3>
-          <p>รายงาน scammer เพื่อป้องกันคนอื่น ข้อมูลของคุณจะถูกเก็บเป็นความลับ</p>
-          <div class="contact-links">
-            <a class="contact-link" href="#" onclick="switchTab('report');return false;">+ รายงาน Scammer</a>
-          </div>
-        </div>
-      </li>
-    </ul>
-
-    <div class="card" style="margin-top:1.5rem;">
-      <h2>📝 AI ช่วยเขียนคำร้องแจ้งความ</h2>
-      <p style="font-size:0.85rem;color:var(--gray-400);margin-bottom:1rem;">กรอกข้อมูลเหตุการณ์ที่เกิดขึ้น AI จะช่วยสรุปเป็นคำร้องแจ้งความภาษาราชการให้</p>
-      <textarea id="complaintInput" placeholder="เล่าเหตุการณ์ที่เกิดขึ้น เช่น วันที่ เวลา ได้รับโทรศัพท์จากใคร บอกอะไร โอนเงินเท่าไร ไปที่บัญชีไหน..."></textarea>
-      <div class="btn-row">
-        <button class="btn btn-primary" onclick="generateComplaint()">✍️ สร้างคำร้องแจ้งความ</button>
+    <div class="card">
+      <div class="card-title">🚨 โดนหลอกแล้ว? ทำตามขั้นตอนนี้ทันที</div>
+      <div class="alert alert-danger" style="margin-bottom:1.25rem;">
+        <strong>⚡ ด่วน!</strong> หากเพิ่งโอนเงินภายใน 24 ชั่วโมง โทร <strong>1441</strong> (ศูนย์รับแจ้งอายัดบัญชี) ได้เลย
       </div>
-      <div class="loading" id="complaintLoading"><div class="spinner"></div><span>AI กำลังเขียนคำร้อง...</span></div>
-      <div class="result-box" id="complaintResult"></div>
+      <div class="steps">
+        <div class="step">
+          <div class="step-body">
+            <h4>หยุดการติดต่อทันที</h4>
+            <p>อย่าโอนเงินเพิ่ม บล็อกเบอร์/บัญชีของผู้หลอกลวง และเก็บหลักฐานทั้งหมด (สกรีนช็อต สลิป chat)</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-body">
+            <h4>แจ้ง Hotline 1441</h4>
+            <p>โทร <strong>1441</strong> ตลอด 24 ชั่วโมง เพื่อขออายัดบัญชีปลายทาง (สำเร็จได้ใน 72 ชั่วโมงแรก)</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-body">
+            <h4>แจ้งความกับตำรวจ</h4>
+            <p>ไปแจ้งความที่สถานีตำรวจใกล้บ้าน หรือแจ้งออนไลน์ที่ <a href="https://www.thaipoliceonline.com" target="_blank">thaipoliceonline.com</a></p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-body">
+            <h4>แจ้ง DSI / กรมสอบสวนคดีพิเศษ</h4>
+            <p>สำหรับคดีออนไลน์ขนาดใหญ่ โทร <strong>1202</strong> หรือ <a href="https://www.dsi.go.th" target="_blank">dsi.go.th</a></p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-body">
+            <h4>รายงานใน ScamCheck</h4>
+            <p>ช่วยชุมชนโดยรายงานข้อมูลที่นี่ เพื่อป้องกันผู้เสียหายรายต่อไป</p>
+            <div class="btn-row mt-1"><button class="btn btn-primary btn-sm" onclick="gotoTab('report')">📝 รายงานเลย</button></div>
+          </div>
+        </div>
+      </div>
     </div>
+
+    <div class="card">
+      <div class="card-title">☎️ หน่วยงานที่เกี่ยวข้อง</div>
+      <div class="agency-grid">
+        <div class="agency-card"><strong>🚔 ตำรวจไซเบอร์ (CCIB)</strong><span>โทร 1441 · แจ้งออนไลน์ 24 ชม.</span></div>
+        <div class="agency-card"><strong>🏛️ DSI</strong><span>โทร 1202 · คดีพิเศษออนไลน์</span></div>
+        <div class="agency-card"><strong>💳 ธนาคารแห่งชาติ</strong><span>โทร 1213 · BoT Hotline</span></div>
+        <div class="agency-card"><strong>📱 สำนักงาน กสทช.</strong><span>โทร 1200 · Sim-box/SMS scam</span></div>
+        <div class="agency-card"><strong>⚖️ สคบ.</strong><span>โทร 1166 · หลอกขายสินค้า</span></div>
+        <div class="agency-card"><strong>🌐 ETDA</strong><span>โทร 1212 · อาชญากรรมออนไลน์</span></div>
+      </div>
+    </div>
+
   </div>
+</div><!-- /sec-complaint -->
 
-  <!-- ===== TAB: REPORT ===== -->
-  <div id="tab-report" class="section">
+<!-- ══ SECTION: REPORT ══ -->
+<div class="section" id="sec-report">
+  <div style="padding-top:2rem;">
+    <div class="card">
+      <div class="card-title">📝 รายงาน Scammer ใหม่</div>
+      <div class="alert alert-info">ข้อมูลที่รายงานจะผ่านการตรวจสอบก่อนแสดงในระบบ และต้องยืนยันตัวตนผ่าน OTP ก่อนส่ง</div>
 
-    <!-- STEP 1: Email Verify -->
-    <!-- EmailJS setup guide (shown only when not configured) -->
-    <div class="setup-banner" id="emailjsSetupBanner">
-      <strong>⚙️ ตั้งค่า EmailJS เพื่อส่ง OTP จริง</strong><br>
-      1. สมัคร <strong>emailjs.com</strong> (ฟรี 200 อีเมล/เดือน)<br>
-      2. สร้าง Email Service (Gmail / Outlook)<br>
-      3. สร้าง Template — ใช้ตัวแปร <code>{{otp_code}}</code> และ <code>{{to_name}}</code><br>
-      4. แก้ค่าในโค้ด: <code>EMAILJS_PUBLIC_KEY</code>, <code>EMAILJS_SERVICE_ID</code>, <code>EMAILJS_TEMPLATE_ID</code><br>
-      <span style="color:var(--gray-400);font-size:0.8rem;">⚠️ ยังไม่ได้ตั้งค่า — ระบบจะใช้ OTP จำลอง (123456) แทน</span>
-    </div>
-
-    <div class="card" id="step-email">
-      <h2>🔐 ยืนยันตัวตนก่อนรายงาน</h2>
-      <p style="font-size:0.875rem;color:var(--gray-600);margin-bottom:1.25rem;line-height:1.6;">
-        เพื่อป้องกันการรายงานซ้ำและรักษาคุณภาพข้อมูล กรุณายืนยันตัวตนก่อน (ข้อมูลจะไม่ถูกเปิดเผยสู่สาธารณะ)
-      </p>
-
-      <!-- Toggle: Email / SMS -->
-      <div class="type-tabs" style="margin-bottom:1.25rem;">
-        <button class="type-tab active" id="tabVerifyEmail" onclick="switchVerify('email')">📧 ยืนยันด้วย E-mail</button>
-        <button class="type-tab" id="tabVerifySms" onclick="switchVerify('sms')">📱 ยืนยันด้วย OTP (SMS)</button>
+      <div class="field">
+        <label>ประเภทข้อมูล</label>
+        <select id="repType">
+          <option value="phone">📞 เบอร์โทรศัพท์</option>
+          <option value="bank">🏦 บัญชีธนาคาร</option>
+          <option value="line">💬 Line ID</option>
+          <option value="url">🌐 URL / เว็บไซต์</option>
+          <option value="email">✉️ อีเมล</option>
+        </select>
+      </div>
+      <div class="field">
+        <label>ข้อมูล Scammer</label>
+        <input type="text" id="repValue" placeholder="เช่น 081-234-5678 หรือ SCB 123-4-56789-0" />
+      </div>
+      <div class="field">
+        <label>รายละเอียด (ไม่บังคับ)</label>
+        <textarea id="repDetail" placeholder="บรรยายวิธีการหลอกลวง เช่น &quot;อ้างเป็นตำรวจ ให้โอนเงินเข้าบัญชีนี้&quot;..."></textarea>
       </div>
 
-      <!-- EMAIL MODE -->
-      <div id="verifyEmailSection">
-        <div class="form-group">
-          <label>อีเมล <span class="required">*</span></label>
-          <div style="display:flex;gap:8px;">
-            <input type="email" id="reportEmail" placeholder="your@email.com" style="flex:1;" />
-            <button class="btn btn-primary" onclick="sendOTP('email')" id="sendOtpBtn">ส่ง OTP</button>
-          </div>
-          <div class="email-status" id="emailStatus"></div>
+      <!-- OTP SECTION -->
+      <div class="divider"></div>
+      <div class="card-title" style="font-size:0.9rem; margin-bottom:0.75rem;">🔐 ยืนยันตัวตนก่อนส่ง</div>
+
+      <div class="verify-toggle">
+        <button class="vtab active" id="vtab-email" onclick="switchVerify('email')">✉️ อีเมล</button>
+        <button class="vtab" id="vtab-sms" onclick="switchVerify('sms')">📱 SMS</button>
+      </div>
+
+      <!-- EMAIL VERIFY -->
+      <div id="verify-email">
+        <div class="field">
+          <label>อีเมลของคุณ</label>
+          <input type="email" id="repEmail" placeholder="you@example.com" />
         </div>
-        <div class="verify-step" id="otpSection">
-          <div class="form-group">
-            <label>กรอก OTP 6 หลักที่ส่งไปยังอีเมล</label>
-            <div class="otp-row">
-              <input type="text" id="otpInput" maxlength="6" placeholder="______" />
-              <button class="btn btn-primary" onclick="verifyOTP()">ยืนยัน OTP</button>
-            </div>
+        <div class="btn-row">
+          <button class="btn btn-secondary" onclick="sendOTP('email')">📨 ส่ง OTP ทางอีเมล</button>
+        </div>
+        <div class="field mt-2 hidden" id="emailOTPField">
+          <label>รหัส OTP (6 หลัก)</label>
+          <div class="otp-row">
+            <input class="otp-input" type="text" id="emailOTPInput" maxlength="6" placeholder="_ _ _ _ _ _" />
+            <button class="btn btn-secondary btn-sm" onclick="verifyOTP('email')">✅ ยืนยัน</button>
           </div>
+          <p class="text-muted mt-1" id="emailOTPHint"></p>
         </div>
       </div>
 
-      <!-- SMS MODE -->
-      <div id="verifySmsSection" style="display:none;">
-        <div style="background:var(--blue-light);border:1px solid #bfdbfe;border-radius:8px;padding:10px 14px;font-size:0.82rem;color:#1e40af;margin-bottom:1rem;">
-          📱 ใช้ <strong>Twilio / AWS SNS</strong> สำหรับ SMS OTP จริง — Demo ใช้ OTP จำลองแทน
-        </div>
-        <div class="form-group">
-          <label>เบอร์โทรศัพท์ <span class="required">*</span></label>
-          <div style="display:flex;gap:8px;">
-            <select id="phoneCountry" style="width:110px;padding:10px 8px;border:1.5px solid var(--gray-200);border-radius:8px;font-family:inherit;font-size:0.9rem;outline:none;">
+      <!-- SMS VERIFY -->
+      <div id="verify-sms" class="hidden">
+        <div class="field">
+          <label>เบอร์โทรศัพท์</label>
+          <div class="phone-row">
+            <select class="country-sel" id="countryCode">
               <option value="+66">🇹🇭 +66</option>
               <option value="+1">🇺🇸 +1</option>
               <option value="+44">🇬🇧 +44</option>
+              <option value="+81">🇯🇵 +81</option>
               <option value="+65">🇸🇬 +65</option>
+              <option value="+60">🇲🇾 +60</option>
+              <option value="+886">🇹🇼 +886</option>
+              <option value="+82">🇰🇷 +82</option>
             </select>
-            <input type="tel" id="reportPhone" placeholder="081-234-5678" style="flex:1;padding:10px 14px;border:1.5px solid var(--gray-200);border-radius:8px;font-size:0.95rem;font-family:inherit;outline:none;" />
-            <button class="btn btn-primary" onclick="sendOTP('sms')" id="sendSmsBtn">ส่ง OTP</button>
-          </div>
-          <div class="email-status" id="smsStatus"></div>
-        </div>
-        <div class="verify-step" id="smsOtpSection">
-          <div class="form-group">
-            <label>กรอก OTP 6 หลักที่ส่งไปยังเบอร์โทร</label>
-            <div class="otp-row">
-              <input type="text" id="smsOtpInput" maxlength="6" placeholder="______" />
-              <button class="btn btn-primary" onclick="verifyOTP('sms')">ยืนยัน OTP</button>
-            </div>
+            <input type="text" id="repPhone" placeholder="812345678 (ไม่ต้องใส่ 0 นำหน้า)" />
           </div>
         </div>
-      </div>
-    </div>
-
-    <!-- STEP 2: Report Form (hidden until verified) -->
-    <div class="card" id="step-form" style="display:none;">
-      <div style="display:flex;align-items:center;gap:8px;margin-bottom:1rem;">
-        <h2 style="margin-bottom:0;">📢 รายงาน Scammer</h2>
-        <span class="trust-badge verified-police">✅ อีเมลยืนยันแล้ว</span>
-      </div>
-      <p style="font-size:0.82rem;color:var(--gray-400);margin-bottom:1.5rem;">
-        ข้อมูลของคุณจะถูกเก็บเป็นความลับ และจะแสดงเพียงบางส่วน (เช่น 081-XXXX-678) เพื่อปกป้องสิทธิ์
-      </p>
-
-      <div class="form-row">
-        <div class="form-group">
-          <label>ประเภท Scam <span class="required">*</span></label>
-          <select id="scamType">
-            <option value="">-- เลือกประเภท --</option>
-            <option value="call">หลอกทางโทรศัพท์</option>
-            <option value="sms">SMS หลอกลวง</option>
-            <option value="line">Line หลอกลวง</option>
-            <option value="bank">บัญชีรับโอนเงิน</option>
-            <option value="web">เว็บไซต์ปลอม</option>
-            <option value="investment">หลอกลงทุน</option>
-            <option value="romance">Romance Scam</option>
-            <option value="other">อื่นๆ</option>
-          </select>
+        <div class="btn-row">
+          <button class="btn btn-secondary" onclick="sendOTP('sms')">📱 ส่ง OTP ทาง SMS</button>
         </div>
-        <div class="form-group">
-          <label>ข้อมูล Scammer <span class="required">*</span></label>
-          <input type="text" id="scamTarget" placeholder="เบอร์โทร / เลขบัญชี / Line ID / URL" oninput="checkPattern()" />
+        <div class="field mt-2 hidden" id="smsOTPField">
+          <label>รหัส OTP (6 หลัก)</label>
+          <div class="otp-row">
+            <input class="otp-input" type="text" id="smsOTPInput" maxlength="6" placeholder="_ _ _ _ _ _" />
+            <button class="btn btn-secondary btn-sm" onclick="verifyOTP('sms')">✅ ยืนยัน</button>
+          </div>
+          <p class="text-muted mt-1" id="smsOTPHint"></p>
         </div>
       </div>
 
-      <!-- AI Pattern Alert -->
-      <div class="pattern-alert" id="patternAlert"></div>
+      <div id="verifiedBadge" class="hidden alert alert-success mt-2">✅ ยืนยันตัวตนสำเร็จ — กดส่งรายงานได้เลย</div>
+      <div class="divider"></div>
 
-      <div class="form-group">
-        <label>เล่าเหตุการณ์ที่เกิดขึ้น <span class="required">*</span></label>
-        <textarea id="scamDesc" style="min-height:100px;" placeholder="อธิบายวิธีที่ถูกหลอก เช่น แจ้งว่าเป็นธนาคาร บอกให้กดลิงก์ โอนเงินมาแล้ว..."></textarea>
+      <div class="alert alert-warn">
+        <strong>📌 หมายเหตุ:</strong> การรายงานเท็จผิด PDPA และกฎหมายอาญา ข้อมูลผู้รายงานจะถูกเก็บบันทึกไว้
       </div>
-
-      <div class="form-row">
-        <div class="form-group">
-          <label>ความเสียหาย (บาท)</label>
-          <input type="number" id="scamAmount" placeholder="0 หากยังไม่ได้เสียเงิน" />
-        </div>
-        <div class="form-group">
-          <label>วันที่เกิดเหตุ</label>
-          <input type="date" id="scamDate" />
-        </div>
-      </div>
-
-      <div class="form-group">
-        <label>แจ้งความแล้วหรือยัง?</label>
-        <select id="reported">
-          <option value="no">ยังไม่ได้แจ้ง</option>
-          <option value="police">แจ้งตำรวจแล้ว</option>
-          <option value="cyber">แจ้งตำรวจไซเบอร์ (1441)</option>
-          <option value="bank">แจ้งธนาคารแล้ว</option>
-        </select>
-      </div>
-
-      <div style="background:var(--yellow-light);border:1px solid #fcd34d;border-radius:8px;padding:10px 14px;font-size:0.8rem;color:#92400e;margin-bottom:1.25rem;">
-        ⚖️ <strong>ข้อควรทราบ:</strong> ข้อมูลที่รายงานจะถูกแสดงในระบบพร้อม disclaimer ว่า "รายงานจากผู้ใช้งาน ยังไม่ผ่านการยืนยัน" หากข้อมูลผิดพลาด เจ้าของข้อมูลสามารถขอคัดค้านได้
-      </div>
-
-      <button class="btn btn-primary" onclick="submitReport()" style="width:100%;padding:14px;">
-        📢 ส่งรายงาน
-      </button>
-      <div class="success-toast" id="successToast">✅ ขอบคุณ! รายงานของคุณถูกส่งเรียบร้อยแล้ว และจะช่วยปกป้องคนอื่นไม่ให้โดนหลอก</div>
+      <button class="btn btn-primary" onclick="submitReport()">🚨 ส่งรายงาน</button>
+      <div id="reportResult" class="mt-2"></div>
     </div>
   </div>
+</div><!-- /sec-report -->
 
 </main>
 
-<!-- APPEAL MODAL -->
+<!-- MODAL: APPEAL -->
 <div class="modal-overlay" id="appealModal">
-  <div class="modal" style="position:relative;">
+  <div class="modal">
     <button class="modal-close" onclick="closeModal()">✕</button>
-    <h3>⚖️ ขอคัดค้าน / ลบข้อมูล</h3>
-    <p>หากคุณเป็นเจ้าของข้อมูลนี้และเชื่อว่าถูกรายงานโดยไม่ถูกต้อง กรุณากรอกข้อมูลด้านล่าง ทีมงานจะตรวจสอบภายใน 3-5 วันทำการ</p>
-    <div class="form-group">
-      <label>อีเมลสำหรับติดต่อกลับ <span class="required">*</span></label>
-      <input type="email" id="appealEmail" placeholder="your@email.com" />
-    </div>
-    <div class="form-group">
-      <label>เหตุผลที่ขอคัดค้าน <span class="required">*</span></label>
-      <select id="appealReason">
-        <option value="">-- เลือกเหตุผล --</option>
-        <option value="wrong">ข้อมูลไม่ถูกต้อง / ฉันไม่ได้ทำ</option>
-        <option value="sold">เบอร์/บัญชีถูกขายต่อแล้ว</option>
-        <option value="stolen">ข้อมูลของฉันถูกนำไปใช้โดยไม่รู้ตัว</option>
-        <option value="resolved">คดีได้รับการแก้ไขแล้ว</option>
-        <option value="other">อื่นๆ</option>
-      </select>
-    </div>
-    <div class="form-group">
-      <label>รายละเอียดเพิ่มเติม</label>
-      <textarea id="appealDetail" style="min-height:80px;" placeholder="อธิบายเหตุผลเพิ่มเติม หรือแนบหลักฐานที่เกี่ยวข้อง..."></textarea>
-    </div>
-    <div class="modal-footer">
+    <h3>📋 ขอให้ลบข้อมูล / ยื่นอุทธรณ์</h3>
+    <div class="alert alert-info" style="margin-bottom:1rem;">หากคุณเป็นเจ้าของข้อมูลและข้อมูลนั้นไม่ถูกต้อง กรุณากรอกแบบฟอร์มด้านล่าง ทีมงานจะติดต่อกลับภายใน 3-5 วันทำการ</div>
+    <div class="field"><label>อีเมลติดต่อกลับ</label><input type="email" id="appealEmail" placeholder="your@email.com" /></div>
+    <div class="field"><label>ข้อมูลที่ต้องการให้ลบ</label><input type="text" id="appealData" placeholder="เช่น 081-XXX-XXXX" /></div>
+    <div class="field"><label>เหตุผล</label><textarea id="appealReason" placeholder="อธิบายว่าทำไมข้อมูลนี้ควรถูกลบออก..."></textarea></div>
+    <div class="btn-row">
+      <button class="btn btn-primary" onclick="submitAppeal()">📤 ส่งคำร้อง</button>
       <button class="btn btn-secondary" onclick="closeModal()">ยกเลิก</button>
-      <button class="btn btn-primary" onclick="submitAppeal()">ส่งคำขอคัดค้าน</button>
     </div>
+    <div id="appealResult" class="mt-2"></div>
   </div>
 </div>
 
-<footer>
-  ScamCheck — Prototype v0.2 &nbsp;|&nbsp; ข้อมูลจาก: ตำรวจไซเบอร์, ธนาคาร, blacklistseller.com, Facebook แจ้งเตือน Scam, LINE ธนาคาร, และรายงานจากผู้ใช้<br>
-  ข้อมูลที่ยังไม่ผ่านการยืนยันจะมีการระบุไว้ชัดเจน &nbsp;|&nbsp; มีข้อสงสัยหรือต้องการคัดค้านข้อมูล กด "ขอคัดค้าน" ที่รายการนั้นๆ
-</footer>
-
 <script>
-// ===== MOCK DATA =====
-const mockDB = [
-  {
-    type:'phone', target:'081-XXXX-678', full:'0812345678',
-    desc:'แอบอ้างเป็นตำรวจ บอกว่าถูกพัวพันคดียาเสพติด ให้โอนเงินประกันทันที',
-    reports:47, date:'2024-03-07', badge:'badge-call', label:'📞 โทรหลอก',
-    source:'police', verified:true, trustLevel:'verified-police', trustDots:5
-  },
-  {
-    type:'bank', target:'SCB 123-XXXXX-0', full:'SCB 1234567890',
-    desc:'บัญชีรับเงินจากการหลอกลงทุนคริปโต ผ่าน Line กลุ่ม ธนาคารยืนยันแล้ว',
-    reports:123, date:'2024-03-07', badge:'badge-bank', label:'🏦 บัญชีโกง',
-    source:'bank', verified:true, trustLevel:'verified-bank', trustDots:5
-  },
-  {
-    type:'line', target:'@invest_rich2024',
-    desc:'ชวนลงทุนหุ้น รับผลตอบแทน 30%/เดือน เมื่อถอนบอกต้องจ่ายภาษีก่อน',
-    reports:89, date:'2024-03-06', badge:'badge-line', label:'💬 Line โกง',
-    source:'blacklist', verified:false, trustLevel:'high', trustDots:4
-  },
-  {
-    type:'web', target:'kbank-secure-login.com',
-    desc:'เว็บปลอม หลอกให้กรอก username/password internet banking',
-    reports:234, date:'2024-03-06', badge:'badge-web', label:'🌐 เว็บปลอม',
-    source:'facebook', verified:false, trustLevel:'high', trustDots:4
-  },
-  {
-    type:'sms', target:'SMS: KBANK',
-    desc:'ส่ง SMS ปลอม แจ้งว่าบัญชีถูกระงับ ให้กดลิงก์เพื่อยืนยันตัวตน',
-    reports:56, date:'2024-03-05', badge:'badge-sms', label:'📱 SMS หลอก',
-    source:'line', verified:true, trustLevel:'verified-bank', trustDots:5
-  },
-  {
-    type:'phone', target:'098-XXXX-321', full:'0987654321',
-    desc:'อ้างเป็นเจ้าหน้าที่ DSI บอกว่าชื่อถูกใช้เปิดบัญชีม้า ให้โอนเงินไปฝาก',
-    reports:31, date:'2024-03-05', badge:'badge-call', label:'📞 โทรหลอก',
-    source:'user', verified:false, trustLevel:'medium', trustDots:3
-  },
-  {
-    type:'bank', target:'KTB 987-XXXXX-0', full:'KTB 9876543210',
-    desc:'Romance Scam ทำทีเป็นคนต่างชาติ หลอกให้โอนเงินช่วยค่าพัสดุ',
-    reports:78, date:'2024-03-04', badge:'badge-bank', label:'🏦 บัญชีโกง',
-    source:'facebook', verified:false, trustLevel:'high', trustDots:4
-  },
-  {
-    type:'line', target:'@part_time_earn',
-    desc:'หลอกให้ทำงาน part-time กดไลก์ รีวิว ต้องวางเงินค้ำประกันก่อน',
-    reports:156, date:'2024-03-04', badge:'badge-line', label:'💬 Line โกง',
-    source:'blacklist', verified:false, trustLevel:'high', trustDots:4
-  },
-  {
-    type:'phone', target:'062-XXXX-111',
-    desc:'แอบอ้างเป็นพนักงานธนาคาร ขอ OTP เพื่อ "ยืนยันตัวตน"',
-    reports:12, date:'2024-03-03', badge:'badge-call', label:'📞 โทรหลอก',
-    source:'user', verified:false, trustLevel:'low', trustDots:2
-  },
-];
-
-const sourceLabels = {
-  police:    ['source-police',    '👮 ตำรวจไซเบอร์'],
-  bank:      ['source-bank',      '🏦 ธนาคาร'],
-  blacklist: ['source-blacklist', '🌐 blacklistseller.com'],
-  facebook:  ['source-facebook',  '📘 Facebook'],
-  line:      ['source-line',      '💚 LINE ธนาคาร'],
-  user:      ['source-user',      '👤 รายงานจากผู้ใช้'],
-};
-
-const trustLabels = {
-  'verified-police': ['verified-police', '✅ ยืนยันโดยตำรวจ'],
-  'verified-bank':   ['verified-bank',   '✅ ยืนยันโดยธนาคาร'],
-  'high':            ['high',            '🔴 ความเสี่ยงสูง'],
-  'medium':          ['medium',          '🟡 ความเสี่ยงปานกลาง'],
-  'low':             ['low',             '🟢 น่าสงสัย'],
-};
-
-const dotColors = {
-  'verified-police':'filled-red','verified-bank':'filled-red',
-  'high':'filled-orange','medium':'filled-yellow','low':'filled-yellow'
-};
-
-function renderDB(filter) {
-  const list = document.getElementById('dbList');
-  let data = filter === 'all' ? mockDB
-    : filter === 'verified' ? mockDB.filter(d => d.verified)
-    : mockDB.filter(d => d.type === filter);
-
-  list.innerHTML = data.map((item,i) => {
-    const [srcClass, srcLabel] = sourceLabels[item.source];
-    const [tClass, tLabel] = trustLabels[item.trustLevel];
-    const dotColor = dotColors[item.trustLevel];
-    const dots = Array.from({length:5},(_,j) =>
-      `<div class="trust-dot ${j < item.trustDots ? dotColor : ''}"></div>`
-    ).join('');
-    const unverifiedNote = item.verified ? '' :
-      `<div class="unverified-note">⚠️ รายงานจากผู้ใช้งาน — ยังไม่ผ่านการยืนยัน</div>`;
-
-    return `
-      <li class="report-item">
-        <div class="report-item-top">
-          <span class="report-type-badge ${item.badge}">${item.label}</span>
-          <div class="report-info">
-            <div class="report-target">${item.target}</div>
-            <div class="report-desc">${item.desc}</div>
-            ${unverifiedNote}
-            <div class="report-meta-row">
-              <span class="trust-badge ${tClass}">${tLabel}</span>
-              <span class="source-badge ${srcClass}">${srcLabel}</span>
-              <span class="report-count-badge">🚨 ${item.reports} ราย</span>
-            </div>
-            <div class="trust-meter">${dots}<span class="trust-label">ระดับความน่าเชื่อถือ</span></div>
-          </div>
-        </div>
-        <div class="report-footer">
-          <span class="report-date">📅 ${item.date}</span>
-          <button class="btn btn-outline" onclick="openAppeal('${item.target}')">⚖️ ขอคัดค้าน / ลบข้อมูล</button>
-        </div>
-      </li>`;
-  }).join('');
-}
-
-function filterDB(el, type) {
-  document.querySelectorAll('.filter-chip').forEach(c => c.classList.remove('active'));
-  el.classList.add('active');
-  renderDB(type);
-}
-
-// ===== TABS =====
-function switchTab(name) {
-  document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
-  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
-  document.getElementById('tab-'+name).classList.add('active');
-  const idx = ['check','db','recovery','report'].indexOf(name);
-  document.querySelectorAll('.tab-btn')[idx].classList.add('active');
-  if (name==='db') renderDB('all');
-}
-
-// ===== SEARCH =====
-let currentType = 'phone';
-const placeholders = {phone:'เบอร์โทร เช่น 0812345678',bank:'เลขบัญชี เช่น 1234567890',line:'Line ID เช่น @invest_rich2024',url:'URL เช่น kbank-secure-login.com',email:'อีเมล เช่น scammer@fake-bank.com'};
-function setType(el,type) {
-  document.querySelectorAll('.type-tab').forEach(t=>t.classList.remove('active'));
-  el.classList.add('active'); currentType=type;
-  document.getElementById('searchInput').placeholder = placeholders[type];
-  document.getElementById('searchResult').style.display='none';
-}
-
-const scamLookup = {
-  '0812345678': mockDB[0],
-  '0987654321': mockDB[5],
-  'scam@fake-bank.com':    { type:'email', target:'scam@fake-bank.com', desc:'อีเมลปลอมแอบอ้างเป็นธนาคาร ส่งลิงก์ phishing ขอ username/password', reports:67, source:'blacklist', verified:false, trustLevel:'high', trustDots:4 },
-  'prize@lottery-win.com': { type:'email', target:'prize@lottery-win.com', desc:'อีเมลแจ้งรางวัล 1 ล้านบาท ให้โอนค่าธรรมเนียมก่อนรับรางวัล', reports:142, source:'facebook', verified:false, trustLevel:'high', trustDots:4 },
-};
-
-function doSearch() {
-  const val = document.getElementById('searchInput').value.trim();
-  if (!val) return;
-  const loading = document.getElementById('searchLoading');
-  const result  = document.getElementById('searchResult');
-  result.style.display='none'; loading.style.display='flex';
-
-  setTimeout(()=>{
-    loading.style.display='none'; result.style.display='block';
-    const clean = val.replace(/[-\s]/g,'');
-    const found = scamLookup[clean] || scamLookup[val.toLowerCase()] ||
-      (val.toLowerCase().includes('fake')||val.toLowerCase().includes('login') ? mockDB[3] : null) ||
-      (currentType==='email' && (val.includes('phish')||val.includes('fake')||val.includes('scam')) ? scamLookup['scam@fake-bank.com'] : null) ||
-      (val==='@invest_rich2024' ? mockDB[2] : null);
-
-    if (found) {
-      const [srcClass,srcLabel] = sourceLabels[found.source];
-      const [tClass,tLabel] = trustLabels[found.trustLevel];
-      const unverNote = found.verified ? '' : `<li style="color:#92400e;">⚠️ รายงานนี้ยังไม่ผ่านการยืนยันโดยทางการ</li>`;
-      result.className='result-box danger';
-      result.innerHTML=`
-        <div class="result-header">
-          <span class="result-icon">🚨</span>
-          <div>
-            <div class="result-title">พบในฐานข้อมูล Scammer!</div>
-            <div style="display:flex;gap:6px;flex-wrap:wrap;margin-top:4px;">
-              <span class="trust-badge ${tClass}">${tLabel}</span>
-              <span class="source-badge ${srcClass}">${srcLabel}</span>
-            </div>
-          </div>
-        </div>
-        <div class="risk-bar-wrap">
-          <div class="risk-bar-label">ระดับความเสี่ยง: <strong>สูงมาก</strong> — รายงาน ${found.reports} ครั้ง</div>
-          <div class="risk-bar-track"><div class="risk-bar-fill red" style="width:92%"></div></div>
-        </div>
-        <ul class="result-list">
-          <li>${found.desc}</li>
-          ${unverNote}
-          <li>ห้ามโอนเงิน หรือให้ข้อมูลส่วนตัวใดๆ</li>
-          <li>หากได้รับการติดต่อ ให้วางสายทันทีและแจ้ง 1441</li>
-        </ul>
-        <div style="margin-top:10px;">
-          <button class="btn btn-outline" onclick="openAppeal('${found.target||val}')">⚖️ ขอคัดค้าน / ลบข้อมูลนี้</button>
-        </div>`;
-    } else {
-      result.className='result-box safe';
-      result.innerHTML=`
-        <div class="result-header">
-          <span class="result-icon">✅</span>
-          <div><div class="result-title">ไม่พบในฐานข้อมูล</div></div>
-        </div>
-        <ul class="result-list">
-          <li style="color:var(--gray-600)">ยังไม่มีรายงานในระบบ ≠ ปลอดภัย 100%</li>
-          <li style="color:var(--gray-600)">ควรระมัดระวังหากถูกขอข้อมูลส่วนตัวหรือโอนเงิน</li>
-          <li style="color:var(--gray-600)">หากสงสัย อย่าโอน — โทรยืนยันผ่านช่องทางทางการก่อน</li>
-        </ul>`;
-    }
-  },1200);
-}
-
-document.addEventListener('DOMContentLoaded',()=>{
-  document.getElementById('searchInput').addEventListener('keydown',e=>{ if(e.key==='Enter') doSearch(); });
-});
-
-// ===== AI TEXT ANALYSIS =====
-const scamSignals = [
-  {pattern:/รางวัล|ถูกรางวัล|โชคดี/i, label:'หลอกด้วยรางวัล'},
-  {pattern:/โอนเงิน|ค่าธรรมเนียม|มัดจำ|ค้ำประกัน/i, label:'ขอเงินล่วงหน้า'},
-  {pattern:/กดลิงก์|คลิก|กรอกข้อมูล/i, label:'ล่อให้กดลิงก์'},
-  {pattern:/ตำรวจ|DSI|กรมสรรพากร|ธนาคาร|เจ้าหน้าที่/i, label:'อ้างเป็นเจ้าหน้าที่'},
-  {pattern:/ด่วน|รีบ|ภายใน|วันนี้เท่านั้น/i, label:'สร้างความรีบเร่ง'},
-  {pattern:/ลงทุน|กำไร|ผลตอบแทน|%/i, label:'ชวนลงทุนผลตอบแทนสูง'},
-  {pattern:/OTP|password|รหัส|บัตร/i, label:'ขอข้อมูลลับ'},
-];
-
-function analyzeText() {
-  const text = document.getElementById('analyzeText').value.trim();
-  if (!text) return;
-  const loading=document.getElementById('analyzeLoading');
-  const result =document.getElementById('analyzeResult');
-  result.style.display='none'; loading.style.display='flex';
-  setTimeout(()=>{
-    loading.style.display='none'; result.style.display='block';
-    const found = scamSignals.filter(s=>s.pattern.test(text));
-    const risk  = Math.min(100, found.length*20 + (found.length>0?20:0));
-    const all   = scamSignals.map(s=>({label:s.label,found:s.pattern.test(text)}));
-    const barClass = risk>=60?'red':risk>0?'yellow':'green';
-    const level = risk>=60?'สูงมาก':risk>0?'ปานกลาง':'ต่ำ';
-    const cls = risk>=60?'danger':risk>0?'warning':'safe';
-    const icon= risk>=60?'🚨':risk>0?'⚠️':'✅';
-    const title=risk>=60?'มีสัญญาณ Scam สูง!':risk>0?'มีบางสัญญาณน่าระวัง':'ไม่พบสัญญาณ Scam ที่ชัดเจน';
-    result.className=`result-box ${cls}`;
-    result.innerHTML=`
-      <div class="result-header">
-        <span class="result-icon">${icon}</span>
-        <div><div class="result-title">${title}</div></div>
-      </div>
-      <div class="risk-bar-wrap">
-        <div class="risk-bar-label">ความเสี่ยง: <strong>${risk}% — ${level}</strong></div>
-        <div class="risk-bar-track"><div class="risk-bar-fill ${barClass}" style="width:${Math.max(risk,4)}%"></div></div>
-      </div>
-      <div class="signals-grid">
-        ${all.map(s=>`
-          <div class="signal-chip ${s.found?'found':'ok'}">
-            <span>${s.found?'⚠️':'✅'}</span><span>${s.label}</span>
-          </div>`).join('')}
-      </div>`;
-  },1500);
-}
-
-// ===== COMPLAINT =====
-function generateComplaint() {
-  const input=document.getElementById('complaintInput').value.trim();
-  if (!input) return;
-  const loading=document.getElementById('complaintLoading');
-  const result =document.getElementById('complaintResult');
-  result.style.display='none'; loading.style.display='flex';
-  setTimeout(()=>{
-    loading.style.display='none'; result.style.display='block';
-    result.className='result-box safe';
-    result.innerHTML=`
-      <div class="result-header">
-        <span class="result-icon">📝</span>
-        <div><div class="result-title">ร่างคำร้องแจ้งความ</div></div>
-      </div>
-      <div style="background:white;border-radius:8px;padding:1rem;margin-top:.75rem;font-size:.875rem;line-height:1.8;border:1px solid var(--gray-200);white-space:pre-line;">คำร้องแจ้งความ
-
-ข้าพเจ้าขอแจ้งความร้องทุกข์เพื่อดำเนินคดีกับผู้กระทำความผิดฐานฉ้อโกง โดยมีรายละเอียดดังต่อไปนี้
-
-สรุปเหตุการณ์:
-${input}
-
-ข้าพเจ้าขอให้เจ้าหน้าที่ดำเนินการสืบสวนและดำเนินคดีกับผู้กระทำผิดตามกฎหมายทุกประการ
-และขอให้มีการอายัดบัญชีเงินฝากที่เกี่ยวข้องเพื่อรักษาทรัพย์สิน
-
-ลงชื่อ ________________________
-วันที่ ________________________</div>
-      <button class="btn btn-secondary" style="margin-top:10px;font-size:.85rem;" onclick="copyText(this,document.querySelector('#complaintResult div[style*=pre-line]').innerText)">📋 คัดลอก</button>`;
-  },1800);
-}
-
-function copyText(btn,text) {
-  navigator.clipboard.writeText(text).then(()=>{
-    btn.textContent='✅ คัดลอกแล้ว!';
-    setTimeout(()=>btn.textContent='📋 คัดลอก',2000);
-  });
-}
-
-// ===== EMAILJS CONFIG — แก้ค่าทั้ง 3 บรรทัดนี้หลัง setup EmailJS =====
+// ── CONFIG ──
 const EMAILJS_PUBLIC_KEY  = 'YOUR_PUBLIC_KEY';
 const EMAILJS_SERVICE_ID  = 'YOUR_SERVICE_ID';
 const EMAILJS_TEMPLATE_ID = 'YOUR_TEMPLATE_ID';
-const EMAILJS_CONFIGURED  = EMAILJS_PUBLIC_KEY !== 'YOUR_PUBLIC_KEY';
+const EJ_OK = EMAILJS_PUBLIC_KEY !== 'YOUR_PUBLIC_KEY';
+if (EJ_OK) emailjs.init(EMAILJS_PUBLIC_KEY);
 
-// ===== VERIFY MODE TOGGLE =====
-let verifyMode = 'email';
-function switchVerify(mode) {
-  verifyMode = mode;
-  document.getElementById('tabVerifyEmail').classList.toggle('active', mode==='email');
-  document.getElementById('tabVerifySms').classList.toggle('active',   mode==='sms');
-  document.getElementById('verifyEmailSection').style.display = mode==='email' ? 'block' : 'none';
-  document.getElementById('verifySmsSection').style.display   = mode==='sms'   ? 'block' : 'none';
+// ── MOCK DATABASE ──
+let mockDB = [
+  { id:1, type:'phone', value:'081-234-5678', masked:'081-2XX-XX78', trust:'vp', source:'police', reports:12, tags:['call-center','lottery'], added:'2024-11-01' },
+  { id:2, type:'bank', value:'SCB 123-456789-0', masked:'SCB 123-XXXXX-0', trust:'vb', source:'bank', reports:7, tags:['investment','fake-transfer'], added:'2024-11-15' },
+  { id:3, type:'line', value:'@fake_bank_th', masked:'@fake_bank_th', trust:'hi', source:'blacklist', reports:34, tags:['phishing','fake-bank'], added:'2024-10-22' },
+  { id:4, type:'url', value:'free-prize-thai.xyz', masked:'free-prize-thai.xyz', trust:'hi', source:'blacklist', reports:19, tags:['fake-site','prize'], added:'2024-12-01' },
+  { id:5, type:'phone', value:'089-999-1234', masked:'089-9XX-XX34', trust:'md', source:'facebook', reports:3, tags:['romance-scam'], added:'2025-01-10' },
+  { id:6, type:'bank', value:'KBANK 456-7-89012-3', masked:'KBANK 456-X-XXXXX-3', trust:'md', source:'user', reports:2, tags:['online-shopping'], added:'2025-01-18' },
+  { id:7, type:'email', value:'prize@scam-thai.net', masked:'prize@scam-thai.net', trust:'hi', source:'blacklist', reports:8, tags:['phishing','email-scam'], added:'2025-02-01' },
+  { id:8, type:'line', value:'policeaide99', masked:'policeaide99', trust:'hi', source:'facebook', reports:5, tags:['impersonation'], added:'2025-02-14' },
+  { id:9, type:'url', value:'investment-return.co', masked:'investment-return.co', trust:'hi', source:'police', reports:21, tags:['investment-fraud'], added:'2025-03-01' },
+];
+
+const scamLookup = {
+  '0812345678': 0, '081-234-5678': 0,
+  'scb123-456789-0': 1, 'scb 123-456789-0': 1,
+  '@fake_bank_th': 2,
+  'free-prize-thai.xyz': 3,
+  '0899991234': 4, '089-999-1234': 4,
+  'prize@scam-thai.net': 6,
+};
+
+const typeIcon = { phone:'📞', bank:'🏦', line:'💬', url:'🌐', email:'✉️' };
+const sourceChipClass = { police:'chip-police', bank:'chip-bank', blacklist:'chip-blacklist', facebook:'chip-facebook', line:'chip-line', user:'chip-user' };
+const sourceLabel = { police:'ตำรวจ', bank:'ธนาคาร', blacklist:'Blacklist', facebook:'Facebook', line:'Line', user:'ผู้ใช้' };
+const trustConfig = {
+  vp: { label:'ยืนยันโดยตำรวจ', score:95, cls:'badge-vp', fill:'fill-danger', icon:'🚨' },
+  vb: { label:'ยืนยันโดยธนาคาร', score:88, cls:'badge-vb', fill:'fill-danger', icon:'🚨' },
+  hi: { label:'ความเสี่ยงสูง', score:75, cls:'badge-hi', fill:'fill-danger', icon:'⚠️' },
+  md: { label:'ความเสี่ยงปานกลาง', score:45, cls:'badge-md', fill:'fill-warn', icon:'⚠️' },
+  lo: { label:'น่าสงสัย', score:20, cls:'badge-lo', fill:'fill-warn', icon:'🤔' },
+};
+
+let currentFilter = 'all';
+let currentOTP = '';
+let emailVerified = false, smsVerified = false;
+let syncInterval, lastSyncTime = Date.now();
+let syncCount = 0;
+
+// ── NAVIGATION ──
+function gotoTab(t) {
+  ['check','db','complaint','report'].forEach(id => {
+    document.getElementById('sec-'+id).classList.toggle('active', id===t);
+    document.getElementById('tab-'+id).classList.toggle('active', id===t);
+    document.getElementById('nav-'+id).classList.toggle('active', id===t);
+  });
+  if (t==='db') { renderDB(); if (!syncInterval) startAutoSync(); }
 }
 
-// ===== EMAIL + SMS OTP =====
-let emailVerified = false;
-let currentOTP    = '';
-let currentSmsOTP = '';
+// ── SEARCH PLACEHOLDER ──
+const placeholders = { phone:'กรอกเบอร์โทรที่ต้องการตรวจสอบ...', bank:'เช่น SCB 123-456789-0...', line:'กรอก Line ID...', url:'กรอก URL เว็บไซต์...', email:'กรอกอีเมล...' };
+function updatePlaceholder() {
+  document.getElementById('searchQ').placeholder = placeholders[document.getElementById('searchType').value] || 'กรอกข้อมูล...';
+}
 
-function generateOTP() { return String(Math.floor(100000 + Math.random() * 900000)); }
+// ── SEARCH ──
+function doSearch() {
+  const raw = document.getElementById('searchQ').value.trim();
+  if (!raw) return;
+  const key = raw.toLowerCase().replace(/\s+/g,'');
+  const area = document.getElementById('resultArea');
+  area.classList.remove('hidden');
+
+  const idx = scamLookup[key] ?? scamLookup[raw.toLowerCase()];
+  if (idx !== undefined) {
+    const e = mockDB[idx];
+    const tc = trustConfig[e.trust];
+    showResult('danger', tc.icon, `พบในฐานข้อมูล Scammer!`, `"${e.masked}" — ${tc.label}`, e, tc);
+  } else {
+    showResultSafe(raw);
+  }
+}
+
+function showResult(type, icon, title, sub, entry, tc) {
+  const box = document.getElementById('resultBox');
+  box.className = 'result-box result-'+type;
+  document.getElementById('resultIcon').textContent = icon;
+  document.getElementById('resultTitle').textContent = title;
+  document.getElementById('resultSubtitle').textContent = sub;
+  document.getElementById('trustScore').textContent = tc.score+'%';
+  document.getElementById('trustLabel').textContent = tc.label;
+  const fill = document.getElementById('meterFill');
+  fill.style.width = tc.score+'%';
+  fill.className = 'meter-fill '+tc.fill;
+  document.getElementById('trustMeter').style.display = '';
+
+  document.getElementById('infoGrid').innerHTML = `
+    <div class="info-cell"><div class="key">ประเภท</div><div class="val">${typeIcon[entry.type]} ${entry.type.toUpperCase()}</div></div>
+    <div class="info-cell"><div class="key">แหล่งข้อมูล</div><div class="val"><span class="chip ${sourceChipClass[entry.source]}">${sourceLabel[entry.source]}</span></div></div>
+    <div class="info-cell"><div class="key">เพิ่มเมื่อ</div><div class="val">${entry.added}</div></div>
+    <div class="info-cell"><div class="key">แท็ก</div><div class="val">${entry.tags.map(t=>`<span class="chip chip-user">${t}</span>`).join(' ')}</div></div>
+  `;
+  const rcw = document.getElementById('reportCountWrap');
+  if (entry.reports > 0) {
+    rcw.classList.remove('hidden');
+    document.getElementById('reportCountNum').textContent = entry.reports;
+  } else { rcw.classList.add('hidden'); }
+}
+
+function showResultSafe(q) {
+  const box = document.getElementById('resultBox');
+  box.className = 'result-box result-safe';
+  document.getElementById('resultIcon').textContent = '✅';
+  document.getElementById('resultTitle').textContent = 'ไม่พบในฐานข้อมูล Scammer';
+  document.getElementById('resultSubtitle').textContent = `"${q}" — ยังไม่มีรายงานในระบบของเรา`;
+  document.getElementById('trustScore').textContent = '—';
+  document.getElementById('trustLabel').textContent = 'ไม่พบข้อมูล';
+  document.getElementById('meterFill').style.width = '0%';
+  document.getElementById('infoGrid').innerHTML = '<div class="info-cell" style="grid-column:1/-1"><div class="key">หมายเหตุ</div><div class="val" style="font-weight:400;color:var(--ink-soft);">การไม่พบข้อมูลไม่ได้หมายความว่าปลอดภัย 100% ควรระมัดระวังอยู่เสมอ</div></div>';
+  document.getElementById('reportCountWrap').classList.add('hidden');
+}
+
+// ── AI ANALYZE ──
+const scamSignals = [
+  { re: /รางวัล|당첨|prize|reward|ได้รับเงิน/i, msg:'🎰 พบรูปแบบล่อด้วยรางวัล' },
+  { re: /โอนเงิน|fee|ค่าธรรมเนียม|ค่าประกัน/i, msg:'💸 พบการขอโอนเงินก่อน' },
+  { re: /ลงทุน|กำไร|return|ผลตอบแทน|%/i, msg:'📈 พบรูปแบบชักชวนลงทุน' },
+  { re: /ตำรวจ|กรมสรรพากร|ศาล|arrest|warrant/i, msg:'👮 พบการแอบอ้างเป็นเจ้าหน้าที่' },
+  { re: /เร่งด่วน|urgent|ด่วน!|ภายใน 24|ภายในวันนี้/i, msg:'⏰ พบการสร้างความเร่งด่วน' },
+  { re: /คลิก|click|กดที่นี่|ลิ้งก์|http/i, msg:'🔗 พบลิงก์น่าสงสัย' },
+  { re: /บัตรประชาชน|passport|id card|OTP|รหัสผ่าน/i, msg:'🔑 พบการขอข้อมูลส่วนตัว' },
+];
+
+function doAnalyze() {
+  const txt = document.getElementById('analyzeText').value.trim();
+  if (!txt) return;
+  const hits = scamSignals.filter(s => s.re.test(txt));
+  const out = document.getElementById('analyzeResult');
+  if (hits.length === 0) {
+    out.innerHTML = '<div class="alert alert-success">✅ ไม่พบสัญญาณ Scam ที่ชัดเจน — แต่ควรระมัดระวังอยู่เสมอ</div>';
+  } else {
+    const risk = hits.length >= 3 ? 'danger' : hits.length >= 2 ? 'warn' : 'warn';
+    out.innerHTML = `<div class="alert alert-${risk}">
+      <strong>🚨 พบ ${hits.length} สัญญาณอันตราย:</strong><br>
+      ${hits.map(h=>`<div style="margin-top:4px">${h.msg}</div>`).join('')}
+      ${hits.length >= 2 ? '<br><strong>⚠️ ข้อความนี้มีความเสี่ยงสูงว่าจะเป็น Scam!</strong>' : ''}
+    </div>`;
+  }
+}
+
+// ── DB ──
+function renderDB(filter) {
+  if (filter !== undefined) currentFilter = filter;
+  const q = (document.getElementById('dbSearch')?.value || '').toLowerCase();
+  const list = document.getElementById('dbList');
+  if (!list) return;
+  const rows = mockDB.filter(e => {
+    if (currentFilter !== 'all' && e.type !== currentFilter) return false;
+    if (q && !e.masked.toLowerCase().includes(q) && !e.tags.join(' ').includes(q)) return false;
+    return true;
+  });
+  if (!rows.length) { list.innerHTML = '<div class="alert alert-info">ไม่พบข้อมูลที่ตรงกัน</div>'; return; }
+  const tc = trustConfig;
+  list.innerHTML = rows.map(e => `
+    <div class="entry-card">
+      <div class="entry-icon">${typeIcon[e.type]}</div>
+      <div class="entry-body">
+        <div class="entry-value">${e.masked}</div>
+        <div class="entry-meta">
+          <span class="chip ${sourceChipClass[e.source]}">${sourceLabel[e.source]}</span>
+          <span>${e.added}</span>
+          <span>🚨 ${e.reports} รายงาน</span>
+          ${e.tags.map(t=>`<span class="chip chip-user">${t}</span>`).join('')}
+        </div>
+      </div>
+      <div class="entry-right">
+        <span class="badge ${tc[e.trust].cls}">${tc[e.trust].label}</span>
+      </div>
+    </div>
+  `).join('');
+}
+
+function setFilter(el, f) {
+  document.querySelectorAll('.filter-chip').forEach(c => c.classList.remove('active'));
+  el.classList.add('active');
+  currentFilter = f;
+  renderDB();
+}
+
+function filterDB() { renderDB(); }
+
+// ── AUTO-SYNC ──
+const newEntries = [
+  { id:10, type:'phone', value:'062-111-2233', masked:'062-1XX-XX33', trust:'md', source:'user', reports:1, tags:['sms-scam'], added: new Date().toISOString().slice(0,10) },
+  { id:11, type:'email', value:'win@lotto-fake.com', masked:'win@lotto-fake.com', trust:'hi', source:'blacklist', reports:6, tags:['lottery','email-scam'], added: new Date().toISOString().slice(0,10) },
+];
+let syncedOnce = false;
+
+function startAutoSync() {
+  syncInterval = setInterval(doSync, 60000);
+}
+
+function doSync(manual) {
+  const dot = document.getElementById('syncDot');
+  const status = document.getElementById('syncStatus');
+  if (dot) dot.className = 'sync-dot stale';
+  if (status) status.textContent = 'กำลังดึงข้อมูลใหม่...';
+
+  setTimeout(() => {
+    let added = 0;
+    if (!syncedOnce) {
+      newEntries.forEach(e => {
+        if (!mockDB.find(x => x.id === e.id)) { mockDB.unshift(e); added++; }
+      });
+      syncedOnce = true;
+    }
+    syncCount++;
+    lastSyncTime = Date.now();
+    if (dot) dot.className = 'sync-dot';
+    const now = new Date().toLocaleTimeString('th-TH');
+    if (status) status.textContent = `ซิงค์ล่าสุด: ${now}${added ? ` — เพิ่ม ${added} รายการใหม่` : ''} · ซิงค์อัตโนมัติทุก 60 วินาที`;
+    renderDB();
+    // update stat
+    document.getElementById('stat-total').textContent = (2847 + mockDB.length - 9).toLocaleString();
+  }, 1200);
+}
+
+function manualSync() { doSync(true); }
+
+// ── OTP ──
+function genOTP() { return String(Math.floor(100000 + Math.random() * 900000)); }
+
+function switchVerify(mode) {
+  document.getElementById('verify-email').classList.toggle('hidden', mode !== 'email');
+  document.getElementById('verify-sms').classList.toggle('hidden', mode !== 'sms');
+  document.getElementById('vtab-email').classList.toggle('active', mode === 'email');
+  document.getElementById('vtab-sms').classList.toggle('active', mode === 'sms');
+}
 
 function sendOTP(channel) {
   if (channel === 'email') {
-    const email = document.getElementById('reportEmail').value.trim();
+    const email = document.getElementById('repEmail').value.trim();
     if (!email || !email.includes('@')) { alert('กรุณากรอกอีเมลให้ถูกต้อง'); return; }
-    const btn    = document.getElementById('sendOtpBtn');
-    const status = document.getElementById('emailStatus');
-    btn.textContent = 'กำลังส่ง...'; btn.disabled = true;
-    currentOTP = generateOTP();
-
-    if (EMAILJS_CONFIGURED) {
-      emailjs.init({ publicKey: EMAILJS_PUBLIC_KEY });
-      emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, {
-        to_email: email, to_name: email.split('@')[0], otp_code: currentOTP,
-      })
-      .then(() => {
-        btn.textContent = 'ส่งแล้ว ✓';
-        status.className = 'email-status sent'; status.style.display = 'block';
-        status.textContent = `📧 ส่ง OTP ไปที่ ${email} แล้ว — กรุณาตรวจสอบกล่องจดหมาย`;
-        document.getElementById('otpSection').classList.add('active');
-      })
-      .catch(err => {
-        btn.textContent = 'ส่ง OTP'; btn.disabled = false;
-        status.className = 'email-status sent'; status.style.display = 'block';
-        status.textContent = `❌ ส่งอีเมลไม่สำเร็จ: ${err.text || err}`;
-      });
+    currentOTP = genOTP();
+    if (EJ_OK) {
+      emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, { to_email: email, otp: currentOTP })
+        .then(() => showOTPField('email', `ส่ง OTP ไปยัง ${email} แล้ว`))
+        .catch(() => showOTPField('email', `[Demo] รหัส OTP: ${currentOTP}`));
     } else {
-      btn.textContent = 'ส่งแล้ว ✓';
-      status.className = 'email-status sent'; status.style.display = 'block';
-      status.innerHTML = `📧 ส่ง OTP ไปที่ <strong>${email}</strong> แล้ว
-        <span style="background:#fef3c7;border:1px solid #fcd34d;border-radius:4px;padding:1px 6px;margin-left:6px;font-size:0.8rem;">
-          Demo: OTP = <strong>${currentOTP}</strong>
-        </span>`;
-      document.getElementById('otpSection').classList.add('active');
+      showOTPField('email', `[Demo] รหัส OTP: ${currentOTP}`);
     }
-
-  } else if (channel === 'sms') {
-    const phone  = document.getElementById('reportPhone').value.trim();
-    const prefix = document.getElementById('phoneCountry').value;
-    if (!phone || phone.replace(/\D/g,'').length < 9) { alert('กรุณากรอกเบอร์โทรให้ถูกต้อง'); return; }
-    const btn    = document.getElementById('sendSmsBtn');
-    const status = document.getElementById('smsStatus');
-    btn.textContent = 'กำลังส่ง...'; btn.disabled = true;
-    currentSmsOTP = generateOTP();
-
-    // Simulate sending (Twilio / AWS SNS ในระบบจริง)
-    setTimeout(() => {
-      btn.textContent = 'ส่งแล้ว ✓';
-      status.className = 'email-status sent'; status.style.display = 'block';
-      status.innerHTML = `📱 ส่ง OTP ไปที่ <strong>${prefix} ${phone}</strong> แล้ว
-        <span style="background:#fef3c7;border:1px solid #fcd34d;border-radius:4px;padding:1px 6px;margin-left:6px;font-size:0.8rem;">
-          Demo: OTP = <strong>${currentSmsOTP}</strong>
-        </span>`;
-      document.getElementById('smsOtpSection').classList.add('active');
-    }, 800);
+  } else {
+    const cc = document.getElementById('countryCode').value;
+    const ph = document.getElementById('repPhone').value.trim();
+    if (!ph) { alert('กรุณากรอกเบอร์โทรศัพท์'); return; }
+    currentOTP = genOTP();
+    showOTPField('sms', `[Demo] ส่ง SMS ไปยัง ${cc}${ph} — รหัส OTP: ${currentOTP}`);
   }
+}
+
+function showOTPField(channel, hint) {
+  const fieldId = channel + 'OTPField';
+  const hintId = channel + 'OTPHint';
+  document.getElementById(fieldId).classList.remove('hidden');
+  document.getElementById(hintId).textContent = hint;
 }
 
 function verifyOTP(channel) {
-  channel = channel || 'email';
-  const inputId  = channel === 'sms' ? 'smsOtpInput'  : 'otpInput';
-  const statusId = channel === 'sms' ? 'smsStatus'     : 'emailStatus';
-  const sectionId= channel === 'sms' ? 'smsOtpSection' : 'otpSection';
-  const expected = channel === 'sms' ? currentSmsOTP   : currentOTP;
-
-  const otp    = document.getElementById(inputId).value.trim();
-  const status = document.getElementById(statusId);
-
-  if (otp === expected) {
-    emailVerified = true;
-    status.className = 'email-status verified'; status.style.display = 'block';
-    status.textContent = channel === 'sms'
-      ? '✅ เบอร์โทรยืนยันสำเร็จ! กรอกข้อมูล Scammer ด้านล่างได้เลย'
-      : '✅ อีเมลยืนยันสำเร็จ! กรอกข้อมูล Scammer ด้านล่างได้เลย';
-    document.getElementById(sectionId).classList.remove('active');
-    document.getElementById('emailjsSetupBanner').classList.add('hidden');
-    setTimeout(()=>{ document.getElementById('step-form').style.display='block'; },400);
+  const inputId = channel === 'email' ? 'emailOTPInput' : 'smsOTPInput';
+  const val = document.getElementById(inputId).value.trim();
+  if (val === currentOTP) {
+    if (channel === 'email') emailVerified = true;
+    else smsVerified = true;
+    document.getElementById('verifiedBadge').classList.remove('hidden');
   } else {
-    status.className = 'email-status sent'; status.style.display = 'block';
-    status.textContent = '❌ OTP ไม่ถูกต้อง กรุณาลองใหม่';
-    document.getElementById(inputId).value = '';
-    document.getElementById(inputId).focus();
+    alert('รหัส OTP ไม่ถูกต้อง กรุณาลองใหม่');
   }
 }
 
-// ===== AI PATTERN DETECTION (MOCK) =====
+// ── SUBMIT REPORT ──
 const reportLog = {};
-function checkPattern() {
-  const val=document.getElementById('scamTarget').value.trim();
-  const alert=document.getElementById('patternAlert');
-  if (!val) { alert.style.display='none'; return; }
-  reportLog[val] = (reportLog[val]||0)+1;
-  if (reportLog[val]>=3) {
-    alert.className='pattern-alert blocked'; alert.style.display='block';
-    alert.innerHTML='🤖 <strong>AI ตรวจพบ:</strong> มีการรายงานซ้ำหลายครั้งในเซสชันนี้ — กรุณาตรวจสอบก่อนส่ง';
-  } else if (mockDB.some(d=>d.full===val)) {
-    alert.className='pattern-alert warning'; alert.style.display='block';
-    alert.innerHTML='🤖 <strong>AI ตรวจพบ:</strong> ข้อมูลนี้มีในฐานข้อมูลแล้ว การรายงานซ้ำจะเพิ่มจำนวนผู้รายงาน';
-  } else {
-    alert.style.display='none';
-  }
-}
-
-// ===== REPORT SUBMIT =====
 function submitReport() {
-  const type=document.getElementById('scamType').value;
-  const target=document.getElementById('scamTarget').value.trim();
-  const desc=document.getElementById('scamDesc').value.trim();
-  if (!type||!target||!desc) { alert('กรุณากรอกข้อมูลที่จำเป็น'); return; }
-  const toast=document.getElementById('successToast');
-  toast.style.display='block';
-  document.getElementById('scamType').value='';
-  document.getElementById('scamTarget').value='';
-  document.getElementById('scamDesc').value='';
-  document.getElementById('scamAmount').value='';
-  document.getElementById('patternAlert').style.display='none';
-  setTimeout(()=>toast.style.display='none',5000);
+  if (!emailVerified && !smsVerified) { alert('กรุณายืนยันตัวตนด้วย OTP ก่อน'); return; }
+  const val = document.getElementById('repValue').value.trim();
+  if (!val) { alert('กรุณากรอกข้อมูล Scammer'); return; }
+  const key = (emailVerified ? document.getElementById('repEmail').value : document.getElementById('repPhone').value).trim();
+  const now = Date.now();
+  if (reportLog[key] && now - reportLog[key] < 300000) {
+    document.getElementById('reportResult').innerHTML = '<div class="alert alert-warn">⚠️ คุณเพิ่งส่งรายงานไปแล้ว กรุณารอ 5 นาทีก่อนส่งอีกครั้ง</div>';
+    return;
+  }
+  reportLog[key] = now;
+  document.getElementById('reportResult').innerHTML = '<div class="alert alert-success">✅ ขอบคุณ! รายงานได้รับการบันทึกแล้ว จะผ่านการตรวจสอบก่อนแสดงในระบบ</div>';
+  document.getElementById('repValue').value = '';
+  document.getElementById('repDetail').value = '';
+  emailVerified = false; smsVerified = false;
+  document.getElementById('verifiedBadge').classList.add('hidden');
+  document.getElementById('stat-today').textContent = parseInt(document.getElementById('stat-today').textContent) + 1;
 }
 
-// ===== APPEAL MODAL =====
-let appealTarget='';
-function openAppeal(target) {
-  appealTarget=target;
-  document.getElementById('appealModal').classList.add('open');
-  document.getElementById('appealEmail').value='';
-  document.getElementById('appealReason').value='';
-  document.getElementById('appealDetail').value='';
-}
+// ── APPEAL ──
+function openAppeal() { document.getElementById('appealModal').classList.add('open'); }
 function closeModal() { document.getElementById('appealModal').classList.remove('open'); }
 function submitAppeal() {
-  const email=document.getElementById('appealEmail').value.trim();
-  const reason=document.getElementById('appealReason').value;
-  if (!email||!reason) { alert('กรุณากรอกอีเมลและเหตุผล'); return; }
-  closeModal();
-  alert(`✅ รับคำขอคัดค้านแล้ว\n\nข้อมูล: ${appealTarget}\nทีมงานจะติดต่อกลับที่ ${email} ภายใน 3-5 วันทำการ`);
+  const email = document.getElementById('appealEmail').value.trim();
+  const data = document.getElementById('appealData').value.trim();
+  if (!email || !data) { alert('กรุณากรอกอีเมลและข้อมูลที่ต้องการลบ'); return; }
+  document.getElementById('appealResult').innerHTML = '<div class="alert alert-success">✅ รับคำร้องแล้ว ทีมงานจะติดต่อกลับภายใน 3-5 วันทำการ</div>';
 }
-
-renderDB('all');
 </script>
 </body>
 </html>
