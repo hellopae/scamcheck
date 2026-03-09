@@ -67,12 +67,15 @@
     .tabbtn.active { color:var(--red); border-bottom-color:var(--red); }
 
     /* ── HERO ── */
-    .hero { padding:3.5rem 1rem 2.5rem; text-align:center; }
+    .hero { padding:0 0 2rem; text-align:center; }
+    .hero-banner { width:100%; border-radius:var(--radius); overflow:hidden; margin-bottom:2rem; }
+    .hero-banner img { width:100%; height:auto; display:block; object-fit:cover; }
+    .hero-banner-fallback { background:linear-gradient(135deg,#fff5f5 0%,#fff 100%); border:1px solid var(--red-mid); border-radius:var(--radius); padding:3rem 1rem 2.5rem; margin-bottom:2rem; }
     .hero-badge { display:inline-flex; align-items:center; gap:6px; background:var(--red-light); border:1px solid var(--red-mid); color:var(--red); font-size:0.78rem; font-weight:700; padding:5px 12px; border-radius:99px; margin-bottom:1.25rem; letter-spacing:0.3px; }
     .hero-badge span { width:7px; height:7px; border-radius:50%; background:var(--red); display:inline-block; animation:pulse-dot 1.8s infinite; }
-    .hero h1 { font-size:2.4rem; font-weight:900; letter-spacing:-1px; line-height:1.15; margin-bottom:0.75rem; }
-    .hero h1 em { font-style:normal; color:var(--red); }
-    .hero p { color:var(--ink-soft); font-size:1rem; max-width:480px; margin:0 auto 2rem; line-height:1.6; }
+    .hero-fallback-h1 { font-size:2.4rem; font-weight:900; letter-spacing:-1px; line-height:1.15; margin-bottom:0.75rem; }
+    .hero-fallback-h1 em { font-style:normal; color:var(--red); }
+    .hero-fallback-p { color:var(--ink-soft); font-size:1rem; max-width:480px; margin:0 auto 0; line-height:1.6; }
     @keyframes pulse-dot { 0%,100%{opacity:1;} 50%{opacity:0.35;} }
 
     /* ── SEARCH BOX ── */
@@ -87,10 +90,14 @@
     .search-go:hover { background:var(--red-dark); }
 
     /* ── INLINE STATS ── */
-    .stats-strip { display:flex; justify-content:center; gap:2.5rem; margin:0 auto 1rem; max-width:600px; flex-wrap:wrap; }
+    .stats-strip { display:flex; justify-content:center; gap:2.5rem; margin:0 auto 1rem; max-width:640px; flex-wrap:wrap; }
     .stat-item { text-align:center; }
-    .stat-item .n { font-size:1.5rem; font-weight:900; display:block; color:var(--red); letter-spacing:-0.5px; }
+    .stat-item .n { font-size:1.5rem; font-weight:900; display:block; letter-spacing:-0.5px; }
     .stat-item .lbl { font-size:0.75rem; color:var(--ink-muted); font-weight:600; text-transform:uppercase; letter-spacing:0.5px; }
+    .stat-item:nth-child(1) .n { color:var(--red); }
+    .stat-item:nth-child(2) .n { color:var(--yellow); }
+    .stat-item:nth-child(3) .n { color:var(--green); }
+    .stat-item:nth-child(4) .n { color:var(--blue); }
 
     /* ── RESULT ── */
     .result-area { margin-top:1.5rem; }
@@ -243,14 +250,109 @@
     .alert-success { background:var(--green-light); color:#064e3b; border-left:3px solid var(--green); }
     .alert-danger { background:var(--red-light); color:#991b1b; border-left:3px solid var(--red); }
 
+    /* ── NAV MOBILE ── */
+    .nav-hamburger { display:none; background:none; border:none; font-size:1.5rem; cursor:pointer; padding:4px; }
+    .nav-drawer { display:none; }
+
     /* ── RESPONSIVE ── */
-    @media (max-width:640px) {
-      nav { padding:0 1rem; }
-      .hero h1 { font-size:1.7rem; }
+    /* Tablet 768px */
+    @media (max-width:768px) {
+      main { padding:0 0.75rem; }
+      .tabbar-inner { overflow-x:auto; -webkit-overflow-scrolling:touch; scrollbar-width:none; }
+      .tabbar-inner::-webkit-scrollbar { display:none; }
+      .tabbtn { padding:12px 14px; font-size:0.82rem; }
       .stats-strip { gap:1.5rem; }
+      .stat-item .n { font-size:1.25rem; }
+      .sources-grid { grid-template-columns:repeat(2,1fr); }
+      .agency-grid { grid-template-columns:repeat(2,1fr); }
+    }
+
+    /* Mobile 640px */
+    @media (max-width:640px) {
+      /* NAV */
+      nav { padding:0 1rem; height:54px; }
+      .nav-links { display:none; }
+      .nav-hamburger { display:block; }
+      .nav-drawer {
+        display:block; position:fixed; top:54px; left:0; right:0; z-index:300;
+        background:var(--surface); border-bottom:1px solid var(--border);
+        box-shadow:var(--shadow-md); padding:0.5rem 1rem 1rem;
+        transform:translateY(-110%); transition:transform 0.25s ease; pointer-events:none;
+      }
+      .nav-drawer.open { transform:translateY(0); pointer-events:all; }
+      .nav-drawer a {
+        display:block; padding:12px 8px; font-size:0.9rem; font-weight:700;
+        color:var(--ink-soft); text-decoration:none; border-bottom:1px solid var(--border);
+      }
+      .nav-drawer a:last-child { border-bottom:none; }
+      .nav-drawer a.active { color:var(--red); }
+      .nav-drawer .drawer-cta { background:var(--red); color:#fff !important; border-radius:var(--radius-sm); margin-top:0.5rem; text-align:center; }
+
+      /* NOTICE */
+      .notice-bar { font-size:0.72rem; padding:6px 1rem; }
+
+      /* TABS */
+      .tabbtn { padding:10px 12px; font-size:0.78rem; }
+
+      /* HERO */
+      .hero { padding:0 0 1.5rem; }
+      .hero-banner { border-radius:0; margin-bottom:1.5rem; }
+      .hero-fallback-h1 { font-size:1.7rem; }
+      .search-wrap { padding:0 0.25rem; }
+      .search-box { flex-direction:column; border-radius:var(--radius); }
+      .search-type-sel { border-right:none; border-bottom:1.5px solid var(--border); padding:10px 14px; width:100%; min-width:unset; border-radius:0; }
+      .search-q { padding:12px 14px; }
+      .search-go { margin:0 8px 8px; padding:12px; border-radius:var(--radius-sm); }
+
+      /* STATS - 2x2 grid on mobile */
+      .stats-strip { display:grid !important; grid-template-columns:1fr 1fr; gap:1.25rem 2rem; padding:0 0.5rem; }
+      .stat-item .n { font-size:1.4rem; }
+      .stat-item .lbl { font-size:0.7rem; }
+
+      /* CARDS */
+      .card { padding:1.25rem; }
+      .result-box { padding:1.25rem; }
+
+      /* INFO GRID */
       .info-grid { grid-template-columns:1fr; }
+
+      /* DB */
+      .db-toolbar { flex-direction:column; align-items:stretch; }
+      .db-toolbar input { width:100%; }
+      .db-toolbar-chips { display:flex; gap:6px; overflow-x:auto; -webkit-overflow-scrolling:touch; padding-bottom:4px; }
+      .filter-chip { white-space:nowrap; }
+      .entry-card { flex-direction:column; align-items:flex-start; gap:0.75rem; padding:1rem; }
+      .entry-right { width:100%; justify-content:flex-start; }
+
+      /* SOURCES */
+      .sources-grid { grid-template-columns:1fr 1fr; }
+
+      /* OTP */
+      .verify-toggle { width:100%; }
+      .vtab { flex:1; text-align:center; }
       .phone-row { flex-direction:column; }
       .country-sel { width:100%; }
+      .otp-row { flex-direction:column; align-items:stretch; }
+      .otp-input { width:100%; }
+
+      /* MODAL */
+      .modal { padding:1.5rem; }
+
+      /* AD */
+      .ad-kaspersky a { flex-direction:column; align-items:flex-start; gap:0.75rem; }
+      .ad-kaspersky .ad-cta { width:100%; text-align:center; padding:10px; }
+
+      /* AGENCY */
+      .agency-grid { grid-template-columns:1fr; }
+
+      /* STEPS */
+      .step::before { width:24px; height:24px; font-size:0.72rem; }
+    }
+
+    /* Very small screens 360px */
+    @media (max-width:360px) {
+      .stats-strip { grid-template-columns:1fr 1fr; gap:0.75rem; }
+      .sources-grid { grid-template-columns:1fr; }
     }
 
     /* ── UTIL ── */
@@ -281,7 +383,16 @@
     <li><a href="#" onclick="gotoTab('complaint');return false;" id="nav-complaint">โดนหลอก?</a></li>
     <li><a href="#" onclick="gotoTab('report');return false;" id="nav-report" class="nav-cta">รายงาน Scammer</a></li>
   </ul>
+  <button class="nav-hamburger" onclick="toggleDrawer()" id="hamburgerBtn" aria-label="เมนู">☰</button>
 </nav>
+
+<!-- MOBILE DRAWER -->
+<div class="nav-drawer" id="navDrawer">
+  <a href="#" onclick="gotoTab('check');drawerClose();return false;" id="dnav-check" class="active">🔍 ตรวจสอบ</a>
+  <a href="#" onclick="gotoTab('db');drawerClose();return false;" id="dnav-db">🗄️ ฐานข้อมูล</a>
+  <a href="#" onclick="gotoTab('complaint');drawerClose();return false;" id="dnav-complaint">🚨 โดนหลอก?</a>
+  <a href="#" onclick="gotoTab('report');drawerClose();return false;" id="dnav-report" class="drawer-cta">📝 รายงาน Scammer</a>
+</div>
 
 <!-- NOTICE BAR -->
 <div class="notice-bar">
@@ -304,9 +415,17 @@
 
   <!-- HERO -->
   <div class="hero">
-    <div class="hero-badge"><span></span> AI-Powered Scam Detection</div>
-    <h1>ตรวจสอบ<em> Scammer </em><br>ก่อนโอนเงิน</h1>
-    <p>ค้นหาเบอร์โทร บัญชีธนาคาร Line ID URL หรืออีเมล ว่าเคยถูกรายงานเป็น Scammer ไว้หรือไม่</p>
+    <!-- BANNER IMAGE -->
+    <div class="hero-banner">
+      <img src="banner.png" alt="ตรวจสอบ Scammer ก่อนโอนเงิน — ScamCheck"
+           onerror="this.parentElement.style.display='none';document.getElementById('heroBannerFallback').style.display='block';" />
+    </div>
+    <!-- FALLBACK (shown only if banner.png missing) -->
+    <div class="hero-banner-fallback" id="heroBannerFallback" style="display:none;">
+      <div class="hero-badge"><span></span> AI-Powered Scam Detection</div>
+      <h1 class="hero-fallback-h1">ตรวจสอบ<em> Scammer </em><br>ก่อนโอนเงิน</h1>
+      <p class="hero-fallback-p">ค้นหาเบอร์โทร บัญชีธนาคาร Line ID URL หรืออีเมล ว่าเคยถูกรายงานเป็น Scammer ไว้หรือไม่</p>
+    </div>
 
     <!-- SEARCH BOX -->
     <div class="search-wrap">
@@ -695,9 +814,28 @@ function gotoTab(t) {
     document.getElementById('sec-'+id).classList.toggle('active', id===t);
     document.getElementById('tab-'+id).classList.toggle('active', id===t);
     document.getElementById('nav-'+id).classList.toggle('active', id===t);
+    const dn = document.getElementById('dnav-'+id);
+    if (dn) dn.classList.toggle('active', id===t);
   });
   if (t==='db') { renderDB(); if (!syncInterval) startAutoSync(); }
 }
+
+// ── HAMBURGER ──
+function toggleDrawer() {
+  const d = document.getElementById('navDrawer');
+  d.classList.toggle('open');
+}
+function drawerClose() {
+  document.getElementById('navDrawer').classList.remove('open');
+}
+// close drawer when clicking outside
+document.addEventListener('click', e => {
+  const drawer = document.getElementById('navDrawer');
+  const btn = document.getElementById('hamburgerBtn');
+  if (drawer && !drawer.contains(e.target) && btn && !btn.contains(e.target)) {
+    drawer.classList.remove('open');
+  }
+});
 
 // ── SEARCH PLACEHOLDER ──
 const placeholders = { phone:'กรอกเบอร์โทรที่ต้องการตรวจสอบ...', bank:'เช่น SCB 123-456789-0...', line:'กรอก Line ID...', url:'กรอก URL เว็บไซต์...', email:'กรอกอีเมล...' };
