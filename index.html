@@ -215,6 +215,11 @@
     .src-link .src-name { font-size:0.82rem; font-weight:800; display:block; }
     .src-link .src-desc { font-size:0.72rem; color:var(--ink-muted); display:block; margin-top:1px; }
     .src-link:hover .src-desc { color:var(--red); opacity:0.8; }
+    .src-link-info { cursor:default; }
+    .src-link-info:hover { border-color:var(--border); background:var(--surface); color:var(--ink); }
+    .src-link-info:hover .src-desc { color:var(--ink-muted); opacity:1; }
+    .src-report-link { color:var(--red); font-weight:700; text-decoration:none; font-size:0.72rem; }
+    .src-report-link:hover { text-decoration:underline; }
 
     /* SYNC BAR */
     .sync-bar { display:flex; align-items:center; gap:10px; background:var(--surface); border:1px solid var(--border); border-radius:var(--radius-sm); padding:10px 14px; margin-bottom:1.25rem; font-size:0.82rem; color:var(--ink-soft); }
@@ -543,11 +548,11 @@
             <span class="src-desc">thaipoliceonline.com</span>
           </div>
         </a>
-        <a class="src-link" href="https://www.bot.or.th/th/financial-consumer/alert-scam.html" target="_blank" rel="noopener">
+        <a class="src-link" href="https://www.bot.or.th/th/fraud.html" target="_blank" rel="noopener">
           <span class="src-icon">🏦</span>
           <div class="src-info">
             <span class="src-name">ธนาคารแห่งประเทศไทย</span>
-            <span class="src-desc">bot.or.th</span>
+            <span class="src-desc">bot.or.th/th/fraud.html</span>
           </div>
         </a>
         <a class="src-link" href="https://www.blacklistseller.com" target="_blank" rel="noopener">
@@ -571,13 +576,13 @@
             <span class="src-desc">แจ้ง Scam ผ่าน LINE</span>
           </div>
         </a>
-        <a class="src-link" href="#" onclick="gotoTab('report');return false;">
+        <div class="src-link src-link-info">
           <span class="src-icon">👤</span>
           <div class="src-info">
             <span class="src-name">ผู้ใช้งาน (Crowdsource)</span>
-            <span class="src-desc">รายงานจากชุมชน</span>
+            <span class="src-desc">รายงานจากชุมชน &nbsp;<a href="#" onclick="gotoTab('report');return false;" class="src-report-link">+ รายงาน</a></span>
           </div>
-        </a>
+        </div>
       </div>
     </div>
 
